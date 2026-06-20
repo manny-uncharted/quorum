@@ -1,34 +1,23 @@
-# Quorum — an autonomous multi-agent prediction desk on DeepBook Predict
+# Quorum: an autonomous multi-agent prediction desk on DeepBook Predict
 
-> Sui Overflow 2026 · DeepBook track. A team of AI agents debate a market, reach
-> **quorum**, and trade oracle-driven binary options on **DeepBook Predict** — with
-> every decision streamed live and recorded as a verifiable on-chain evidence bundle.
+> Sui Overflow 2026, DeepBook Predict track. A team of AI agents debate a market, reach
+> **quorum**, and trade oracle-driven binary options on **DeepBook Predict**, with every
+> decision streamed live and recorded as a verifiable on-chain evidence bundle.
 
 ---
 
 ## Why this, why now
 
 DeepBook **Predict** (the third DeepBook primitive, testnet live since May 2026) lets
-anyone mint/redeem binary positions against oracle-driven prices. It is brand new, so
-the field of polished apps on top of it is essentially empty — the strategic lane for
-this hackathon.
+anyone mint and redeem binary positions against oracle-driven prices. It is brand new, so
+the field of polished apps on top of it is essentially empty.
 
-We are not building a raw SDK demo. We are building a *product*: a transparent,
-auditable AI trading desk where you can watch the reasoning, see the policy gates, and
-verify on-chain why every position was opened.
+We are not building a raw SDK demo. We are building a *product*: a transparent, auditable
+AI trading desk where you can watch the reasoning, see the policy gates, and verify
+on-chain why every position was opened.
 
-It pairs a first-principles multi-agent runtime with **all-new** DeepBook Predict
-integration, an on-chain consensus-oracle primitive, and the prediction-market product
-surface — built during the hackathon window.
-
-## What the judges score (and how we win it)
-
-| Criterion | Weight | Our play |
-|-----------|--------|----------|
-| Real-world application | 50% | Transparent, auditable AI prediction trading — a real product shape — plus a reusable consensus-probability primitive other protocols can compose with |
-| Product & UX | 20% | Live generative-UI desk: watch the debate, odds, positions, P&L, and the on-chain consensus publish |
-| Technical implementation | 20% | Real testnet mint/redeem via `@mysten/sui`; policy gates; evidence bundles; our own `quorum_oracle` Move package (cap-gated publish, keyless read, event) |
-| Presentation & vision | 10% | Tight ≤5-min demo: problem → live trade → why Sui → roadmap |
+It pairs a first-principles multi-agent runtime with all-new DeepBook Predict integration,
+an on-chain consensus-oracle primitive, and a full prediction-market product surface.
 
 ---
 
@@ -54,14 +43,14 @@ surface — built during the hackathon window.
          live debate · odds · positions · P&L · on-chain publish · evidence panel
 ```
 
-**The single seam.** Execution is one typed boundary — an `ExecutionProvider`
+**The single seam.** Execution is one typed boundary: an `ExecutionProvider`
 (`supports` / `execute → ExecutionEnvelope`). The brain doesn't know it's trading
 prediction markets; we just add a new provider. The paper provider stays as a fallback so
 a demo can never hard-fail.
 
 ---
 
-## On-chain facts (DeepBook Predict testnet — verified)
+## On-chain facts (DeepBook Predict testnet, verified)
 
 | Thing | Value |
 |-------|-------|
@@ -86,29 +75,29 @@ public fun supply<Quote>(predict, coin, clock, ctx): Coin<PLP>   // LP
 ```
 
 `Clock` is the shared object at `0x6`. `MarketKey` is built from
-`(oracle, strike, direction)` — see `src/predict/market.ts` (resolved against
+`(oracle, strike, direction)` (see `src/predict/market.ts`, resolved against
 `market_key.move`).
 
 ---
 
-## The trader's brain — rebuilt from first principles
+## The trader's brain, rebuilt from first principles
 
 A generic trading loop is an *equity* engine (Buy/Hold/Sell, price targets, multi-month
 horizons). A binary option is a different animal, so the desk reasons differently:
 
-**A binary's price IS a probability.** The contract prices off the oracle's SVI
-volatility surface — a fair, **driftless** (risk-neutral) baseline. Re-deriving that
-baseline yields *no edge*; it equals the market quote by construction. Edge exists only
-where the **real-world** probability differs from the driftless one — momentum, order
-flow, funding, scheduled catalysts — things risk-neutral pricing ignores over a
-15-minute-to-few-hour window.
+**A binary's price IS a probability.** The contract prices off the oracle's SVI volatility
+surface, a fair, **driftless** (risk-neutral) baseline. Re-deriving that baseline yields
+*no edge*; it equals the market quote by construction. Edge exists only where the
+**real-world** probability differs from the driftless one: momentum, order flow, funding,
+and scheduled catalysts, the things risk-neutral pricing ignores over a 15-minute to
+few-hour window.
 
 ```
 edge = P_subjective(up) − P_implied(market)
 ```
 
 **Division of labour (deliberate):** the LLM agents estimate a *probability* and argue
-about it; the deterministic quant core owns *all arithmetic* — edge, Kelly, sizing,
+about it; the deterministic quant core owns *all arithmetic*: edge, Kelly, sizing,
 thresholds. Models are weak at arithmetic and strong at judgement, so a model never
 computes a position size.
 
@@ -132,28 +121,28 @@ risk officer     → circuit breakers (time-to-expiry, vol spike, catalyst, caps
 PredictExecutionProvider → real on-chain quote + mint (paper | testnet)
 ```
 
-This is the differentiator vs a black-box quant market-maker: every trade exposes its
+This is the differentiator versus a black-box quant market-maker: every trade exposes its
 probability estimate, its edge, the debate that produced it, and an on-chain evidence
-trail — and it *abstains* when there's no edge (the common case).
+trail. It *abstains* when there's no edge (the common case).
 
 ### Three personas, one pipeline
 
-The "brain" is a pluggable `SignalSource`; everything after it (planner → risk gate →
+The "brain" is a pluggable `SignalSource`; everything after it (planner, risk gate,
 executor) is identical. Risk is **code-owned** (`risk.ts` circuit breakers), never a prompt.
 
 | Persona | Command | Brain | Keys |
 |---------|---------|-------|------|
-| **Beginner** | `bun run desk` | deterministic heuristic | none — keyless paper |
+| **Beginner** | `bun run desk` | deterministic heuristic | none (keyless paper) |
 | **Analyst** | `bun run desk --signals manual --prob 0.62` | your own probability | none |
 | **Experienced trader** | `bun run desk --signals llm` | 4-analyst + debate (Gemini) | `GEMINI_API_KEY` |
 
 Paper mode prices every order with a **real on-chain quote** (devInspect) but books a
-synthetic fill — faithful, fundless. `--mode testnet` submits a real mint.
+synthetic fill: faithful and fundless. `--mode testnet` submits a real mint.
 
 ### Live data, config, multi-asset
 
-- **Live data** (`desk/marketdata.ts`, keyless): Coinbase 1m candles → momentum / RSI /
-  realized-vol; Binance funding (best-effort); alternative.me Fear & Greed. Fed to both
+- **Live data** (`desk/marketdata.ts`, keyless): Coinbase 1m candles into momentum, RSI,
+  and realized-vol; Binance funding (best-effort); alternative.me Fear & Greed. Fed to both
   the heuristic and the Gemini analysts; sources degrade to `null` with a note, never break a run.
 - **Config-driven** (`desk/config.ts`): bankroll, risk limits, portfolio breakers, Kelly
   fraction, asset list, and Gemini model load from `quorum.config.json` + `QUORUM_*` env
@@ -164,21 +153,21 @@ synthetic fill — faithful, fundless. `--mode testnet` submits a real mint.
 
 ### Live web desk (SSE)
 
-`bun run serve` → `http://localhost:8787`. Press “Run desk” and the analyst signals, debate,
-proposal, sized plan, risk verdict, and execution stream in live over Server-Sent Events —
-the same typed events the CLI emits — with a portfolio/P&L panel. It's a window into the real
-pipeline, not a mock.
+`bun run serve` serves the desk at `http://localhost:8787`. Press "Run desk" and the
+analyst signals, debate, proposal, sized plan, risk verdict, and execution stream in live
+over Server-Sent Events (the same typed events the CLI emits), with a portfolio/P&L panel.
+It's a window into the real pipeline, not a mock.
 
-### Day-2 status: engine verified end-to-end ✅
+### Verified end-to-end
 
 `bun run desk` runs the whole pipeline against a **live** testnet market with no funds,
-keys, or LLM: reads the SVI surface, computes the risk-neutral baseline, pulls the
-market-implied probability from a real quote, runs stubbed subjective views through the
-quant decision + sizing, and books paper fills. Risk-neutral P(up) lands at ~50% and
+keys, or LLM: it reads the SVI surface, computes the risk-neutral baseline, pulls the
+market-implied probability from a real quote, runs subjective views through the quant
+decision and sizing, and books paper fills. Risk-neutral P(up) lands at ~50% and
 market-implied ~51% (the ~1% gap is the spread). `bun test` covers the quant core
-(surface math, digital pricing, Kelly, edge/abstain logic) — 8/8 green.
+(surface math, digital pricing, Kelly, edge/abstain logic), 8/8 green.
 
-Layout (new in Day 2):
+### Project layout
 
 ```
 src/desk/
@@ -191,32 +180,6 @@ src/desk/
   executor.ts     PredictExecutionProvider (paper uses real quotes; testnet mints)
 src/fabric/       desk runtime kernel (agent loop, policy, memory, evidence primitives)
 ```
-
-## Build plan (4 days → June 21, 6PM PT)
-
-- **Day 1 (de-risk):** market feed + chain client + standalone spike: create manager →
-  deposit DUSDC → preview → mint ONE binary position on testnet. ← *we are here*
-- **Day 2:** `PredictExecutionProvider` behind the desk's `ExecutionProvider` seam;
-  agent debate → risk gate → real mint. Paper fallback retained.
-- **Day 3:** generative-UI desk (SSE) + redeem/settlement + evidence panel.
-- **Day 4:** polish, deploy, README, ≤5-min demo video, submit.
-
-## Deploy
-
-For the demo, run locally: `bun run serve` → `http://localhost:8787`.
-
-As a service (container): the desk UI is a `Bun.serve` app.
-
-```bash
-docker build -f quorum/Dockerfile -t quorum .
-docker run -p 8787:8787 --env-file quorum/.env quorum
-```
-
-Provide `GEMINI_API_KEY` for the LLM brain; the heuristic and manual brains need no keys.
-On Railway/Render/Fly, set the start command to `bun run src/scripts/serve.ts`.
-
-Submission artifacts: `SUBMISSION.md` (checklist), `VIDEO.md` / `DEMO_SCRIPT.md`
-(demo script), `web/index.html` (landing page), `assets/logo.png` (1:1).
 
 ## Run
 
@@ -243,29 +206,30 @@ bun run desk --asset BTC                  # restrict to an asset (DeepBook testn
 cp .env.example .env          # add SUI_PRIVATE_KEY (testnet) for --mode testnet; GEMINI_API_KEY for --signals llm
 bun run spike                 # create manager → deposit → preview → mint (needs testnet funds)
 
-# Consensus Oracle — the on-chain primitive (needs SUI key + a deployed quorum_oracle):
+# Consensus Oracle, the on-chain primitive (needs SUI key + a deployed quorum_oracle):
 bun run oracle publish        # run the desk on a market and publish its consensus on-chain (no DUSDC)
 bun run oracle read <oracleId>      # keyless consumer read of the latest consensus
 bun run oracle consumer <oracleId>  # demo: an option vault sizes an allocation from the feed
 ```
 
-`markets` and `preview` are **proven working against testnet** — they need no wallet.
+`markets` and `preview` are **proven working against testnet**; they need no wallet.
 `spike` additionally needs testnet SUI (gas) + DUSDC in that account.
 
-## Consensus Oracle — the on-chain primitive
+## Consensus Oracle: the on-chain primitive
 
-Quorum doesn't just *consume* DeepBook Predict — it **emits a new primitive**. Each run
+Quorum doesn't just *consume* DeepBook Predict; it **emits a new primitive**. Each run
 publishes its consensus to a shared `ConsensusOracle` object (`move/quorum_oracle`):
-real-world `P(up)`, confidence, an **analyst-disagreement index**, the market-implied
-probability, expiry, and the SHA-256 of the signed evidence bundle — all in basis points.
+real-world `P(up)`, confidence, an analyst-disagreement index, the market-implied
+probability, expiry, and the SHA-256 of the signed evidence bundle, all in basis points.
 Writes are gated by a `PublisherCap`; reads are open to all via a keyless `consensus::read`
 view, and every publish emits a `ConsensusPublished` event for indexers.
 
-Sui has no forward-looking, reasoning-derived probability benchmark today; this is one — a
-transparent "wisdom of agents" feed any protocol can read (option vaults to price/skew,
-liquidation engines, other desks). `bun run oracle consumer <oracleId>` ships a working
-downstream consumer that sizes a vault tilt from the feed, discounted by disagreement.
-Publishing needs only the desk key (no DUSDC), so the primitive works in the keyless demo too.
+Sui has no forward-looking, reasoning-derived probability benchmark today; this is one. It
+is a transparent "wisdom of agents" feed any protocol can read (option vaults to price and
+skew, liquidation engines, other desks). `bun run oracle consumer <oracleId>` ships a
+working downstream consumer that sizes a vault tilt from the feed, discounted by
+disagreement. Publishing needs only the desk key (no DUSDC), so the primitive works in the
+keyless demo too.
 
 ```bash
 # Deploy once, then wire the three ids into .env:
@@ -274,19 +238,24 @@ sui client publish move/quorum_oracle      # → QUORUM_ORACLE_PACKAGE (package)
                                            #   QUORUM_ORACLE_CAP (PublisherCap, owned by the desk key)
 ```
 
-### Day-1 status: de-risk complete ✅
+## Deploy
 
-The whole DeepBook Predict read/price path is verified live on testnet with zero
-funds: market feed (`/oracles`), `MarketKey` construction, oracle forward-price
-lookup, and `get_trade_amounts` pricing via `devInspect`. Example: an ATM BTC UP
-contract prices at ~0.51 DUSDC / 1M units (≈51% implied probability). The mint/redeem
-builders are written and typed; the only thing gating a real on-chain mint is funding
-the signer.
+For the demo, run locally: `bun run serve` at `http://localhost:8787`.
 
-### Get testnet funds (to run `spike`)
+As a service (container): the desk UI is a `Bun.serve` app.
+
+```bash
+docker build -f quorum/Dockerfile -t quorum .
+docker run -p 8787:8787 --env-file quorum/.env quorum
+```
+
+Provide `GEMINI_API_KEY` for the LLM brain; the heuristic and manual brains need no keys.
+On Railway/Render/Fly, set the start command to `bun run src/scripts/serve.ts`.
+
+## Get testnet funds (to run `spike`)
 
 1. Generate a key: `bunx @mysten/sui keytool generate ed25519`, put the
    `suiprivkey1…` into `.env` as `SUI_PRIVATE_KEY`.
-2. Gas: testnet SUI faucet — https://faucet.sui.io (or `bunx @mysten/sui faucet`).
+2. Gas: testnet SUI faucet at https://faucet.sui.io (or `bunx @mysten/sui faucet`).
 3. DUSDC: request via the DeepBook Predict testnet token form (quote currency
    `0xf3000dff421833d4bb8ed58fac146d691a3aaba2785aa1989af65a7089ca3e9c`).

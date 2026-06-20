@@ -1,7 +1,7 @@
 /**
  * DeepBook Predict execution provider.
  *
- * Mirrors the vendored fabric `ExecutionProvider` contract (`id` / `supports` /
+ * Mirrors the desk's `ExecutionProvider` contract (`id` / `supports` /
  * `execute → ExecutionEnvelope`) but speaks the binary-option domain. Two modes:
  *
  *   - paper   — prices the order with a REAL on-chain `get_trade_amounts` quote

@@ -1,8 +1,8 @@
 /**
  * Prediction-desk domain model.
  *
- * Deliberately binary-option native — NOT the equity Buy/Hold/Sell shape from
- * the vendored fabric. A position is a directional bet on an oracle/strike/expiry
+ * Deliberately binary-option native — NOT a generic equity Buy/Hold/Sell shape.
+ * A position is a directional bet on an oracle/strike/expiry
  * tuple; the desk reasons in probabilities and edge, not price targets.
  */
 

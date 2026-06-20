@@ -2,8 +2,8 @@
  * Gemini multi-agent signal source — the experienced-trader brain.
  *
  * Runs the four binary-native analysts (volatility, momentum, catalyst, flow),
- * a bull/bear debate, and a trader synthesis through the `@veridex/agents`
- * runtime (the same kernel the vendored fabric uses). The trader emits a single
+ * a bull/bear debate, and a trader synthesis through the agent runtime
+ * (`@veridex/agents`). The trader emits a single
  * calibrated `subjectiveProbUp`; the deterministic quant core does the rest.
  *
  * Agents reason over the on-chain MarketContext (surface, forward/spot, strike,
