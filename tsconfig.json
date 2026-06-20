@@ -1,0 +1,19 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "module": "ESNext",
+    "moduleResolution": "bundler",
+    "lib": ["ES2022", "DOM"],
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "esModuleInterop": true,
+    "skipLibCheck": true,
+    "resolveJsonModule": true,
+    "verbatimModuleSyntax": true,
+    "noEmit": true,
+    "types": ["bun"]
+  },
+  "include": ["src/**/*.ts"],
+  "//exclude": "src/fabric is vendored from @veridex/trading-fabric and typechecked in its own package under a looser config; we only import its pure type modules.",
+  "exclude": ["src/fabric/**"]
+}

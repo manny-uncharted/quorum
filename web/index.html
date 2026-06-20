@@ -1,0 +1,355 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Quorum — autonomous prediction desk + consensus oracle on DeepBook Predict</title>
+<meta name="description" content="A multi-agent prediction-market desk on DeepBook Predict that debates to a probability, trades binary options with signed on-chain evidence, and publishes that consensus as Sui's first reusable wisdom-of-agents probability oracle." />
+<meta property="og:title" content="Quorum — autonomous prediction desk + consensus oracle" />
+<meta property="og:description" content="Sui's first wisdom-of-agents probability oracle, built on DeepBook Predict." />
+<meta property="og:image" content="../assets/logo.png" />
+<link rel="icon" href="../assets/logo.png" />
+<style>
+  :root{
+    --bg:#0b0e14; --bg2:#0d111a; --panel:#11151f; --panel2:#141a26; --line:#1e2533;
+    --fg:#e6eaf2; --soft:#c2c9d6; --dim:#7b8597;
+    --up:#3fb950; --down:#f85149; --neu:#d29922; --acc:#58a6ff;
+    --grad:linear-gradient(120deg,#58a6ff,#3fb950);
+    --mono:ui-monospace,SFMono-Regular,Menlo,monospace;
+    --sans:-apple-system,BlinkMacSystemFont,"Segoe UI",Inter,Roboto,Helvetica,Arial,sans-serif;
+    --maxw:1080px;
+  }
+  *{box-sizing:border-box}
+  html{scroll-behavior:smooth}
+  body{margin:0;background:radial-gradient(1200px 700px at 70% -10%,#121a2b 0,var(--bg) 55%) no-repeat,var(--bg);
+    color:var(--fg);font:16px/1.65 var(--sans);-webkit-font-smoothing:antialiased}
+  a{color:var(--acc);text-decoration:none}
+  a:hover{text-decoration:underline}
+  .wrap{max-width:var(--maxw);margin:0 auto;padding:0 22px}
+  .mono{font-family:var(--mono)}
+  .grad{background:var(--grad);-webkit-background-clip:text;background-clip:text;color:transparent}
+  .eyebrow{font:600 12px/1 var(--mono);letter-spacing:2px;text-transform:uppercase;color:var(--dim)}
+
+  /* nav */
+  header.nav{position:sticky;top:0;z-index:20;backdrop-filter:blur(10px);
+    background:rgba(11,14,20,.72);border-bottom:1px solid var(--line)}
+  .nav .wrap{display:flex;align-items:center;gap:18px;height:62px}
+  .brand{display:flex;align-items:center;gap:10px;font:700 16px/1 var(--mono);letter-spacing:1px}
+  .brand img{width:28px;height:28px;border-radius:7px}
+  .nav nav{margin-left:auto;display:flex;gap:22px;align-items:center}
+  .nav nav a{color:var(--soft);font-size:14px}
+  .btn{display:inline-block;padding:10px 16px;border-radius:9px;font:600 14px/1 var(--sans);
+    border:1px solid var(--line);color:var(--fg);background:var(--panel);transition:.15s}
+  .btn:hover{border-color:#2c374a;text-decoration:none;transform:translateY(-1px)}
+  .btn.primary{background:var(--grad);color:#04101f;border:0}
+  .btn.primary:hover{filter:brightness(1.06)}
+
+  /* hero */
+  .hero{padding:84px 0 56px}
+  .hero .grid{display:grid;grid-template-columns:1.15fr .85fr;gap:40px;align-items:center}
+  .hero h1{font:800 clamp(34px,5vw,56px)/1.05 var(--sans);letter-spacing:-1px;margin:14px 0 0}
+  .hero p.lede{font-size:19px;color:var(--soft);margin:18px 0 0;max-width:38ch}
+  .hero .cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
+  .pillrow{display:flex;gap:8px;flex-wrap:wrap;margin-top:26px}
+  .pill{font:600 12px/1 var(--mono);color:var(--soft);border:1px solid var(--line);
+    background:var(--panel);padding:7px 11px;border-radius:999px}
+  .pill b{color:var(--acc)}
+
+  /* hero orbit */
+  .orbit{aspect-ratio:1;width:100%;max-width:380px;margin-inline:auto;display:block}
+  .orbit .ring{fill:none;stroke:var(--line);stroke-width:2}
+  .orbit .spoke{stroke:#223049;stroke-width:2}
+  .orbit .node{fill:url(#g)}
+  .orbit .core{fill:#eef3f8}
+  .spin{transform-origin:256px 256px;animation:spin 26s linear infinite}
+  @keyframes spin{to{transform:rotate(360deg)}}
+  .pulse{animation:pulse 3.2s ease-in-out infinite}
+  @keyframes pulse{0%,100%{opacity:.55}50%{opacity:1}}
+
+  /* sections */
+  section{padding:60px 0;border-top:1px solid var(--line)}
+  .h2{font:800 clamp(24px,3.2vw,34px)/1.1 var(--sans);letter-spacing:-.5px;margin:8px 0 0}
+  .sub{color:var(--soft);max-width:60ch;margin-top:12px}
+  .cols{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px}
+  .card{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
+    border-radius:14px;padding:22px}
+  .card h3{margin:0 0 8px;font-size:18px}
+  .card p{margin:0;color:var(--soft);font-size:15px}
+
+  /* primitive highlight */
+  .feature{position:relative;border:1px solid #243149;border-radius:16px;overflow:hidden;
+    background:radial-gradient(700px 300px at 0% 0%,rgba(88,166,255,.10),transparent 60%),
+               radial-gradient(700px 300px at 100% 100%,rgba(63,185,80,.10),transparent 60%),var(--panel);
+    padding:30px;margin-top:30px}
+  .feature .grid{display:grid;grid-template-columns:1.05fr .95fr;gap:28px;align-items:center}
+  .fieldgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:6px}
+  .field{background:#0c111b;border:1px solid var(--line);border-radius:10px;padding:10px 12px}
+  .field .k{font:600 11px/1 var(--mono);color:var(--dim);text-transform:uppercase;letter-spacing:.6px}
+  .field .v{font:700 16px/1.3 var(--mono);margin-top:6px}
+
+  /* code */
+  pre{background:#0a0e16;border:1px solid var(--line);border-radius:12px;padding:16px 18px;
+    overflow:auto;font:13px/1.6 var(--mono);color:#c8d2e0;margin:18px 0 0}
+  pre .c{color:var(--dim)} pre .g{color:var(--up)} pre .b{color:var(--acc)} pre .y{color:var(--neu)}
+
+  /* pipeline */
+  .flow{display:flex;gap:10px;flex-wrap:wrap;margin-top:26px}
+  .step{flex:1;min-width:140px;background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:14px}
+  .step .n{font:700 12px/1 var(--mono);color:var(--acc)}
+  .step h4{margin:8px 0 4px;font-size:15px}
+  .step p{margin:0;color:var(--dim);font-size:13px}
+  .step.win{border-color:#2c5a3a;background:linear-gradient(180deg,rgba(63,185,80,.08),var(--panel))}
+
+  /* tech grid */
+  .grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px;margin-top:26px}
+  .tile{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:18px}
+  .tile .ic{font-size:18px}
+  .tile h4{margin:10px 0 6px;font-size:15px}
+  .tile p{margin:0;color:var(--dim);font-size:13px}
+
+  /* cta band */
+  .band{background:linear-gradient(180deg,var(--panel),var(--bg2));border:1px solid var(--line);
+    border-radius:16px;padding:30px;margin-top:30px;text-align:center}
+  .band h3{margin:0 0 6px;font-size:22px}
+  .band p{color:var(--soft);margin:0 0 18px}
+
+  footer{border-top:1px solid var(--line);padding:34px 0;color:var(--dim);font-size:13px}
+  footer .wrap{display:flex;gap:16px;flex-wrap:wrap;align-items:center;justify-content:space-between}
+  .placeholder{color:var(--neu)}
+
+  @media(max-width:860px){
+    .hero .grid,.feature .grid{grid-template-columns:1fr}
+    .cols,.grid3{grid-template-columns:1fr}
+    .orbit{order:-1;max-width:300px}
+    .nav nav a:not(.btn){display:none}
+  }
+</style>
+</head>
+<body>
+
+<header class="nav">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="../assets/logo.png" alt="Quorum logo" /> <span>QUORUM</span></a>
+    <nav>
+      <a href="#primitive">Oracle</a>
+      <a href="#how">How it works</a>
+      <a href="#compose">Composability</a>
+      <a href="#try">Run it</a>
+      <!-- [YOU] set these links before deploy -->
+      <a class="btn" href="REPLACE_WITH_REPO_URL" target="_blank" rel="noopener">GitHub</a>
+      <a class="btn primary" href="REPLACE_WITH_VIDEO_URL" target="_blank" rel="noopener">Watch demo ▸</a>
+    </nav>
+  </div>
+</header>
+
+<a id="top"></a>
+<section class="hero" style="border-top:0">
+  <div class="wrap grid">
+    <div>
+      <div class="eyebrow">Sui Overflow 2026 · DeepBook Predict</div>
+      <h1>Autonomous agents that <span class="grad">debate, trade, and publish</span> a probability on-chain.</h1>
+      <p class="lede">Quorum is a multi-agent prediction-market desk on DeepBook Predict — and the first
+        <b>wisdom-of-agents probability oracle</b> on Sui.</p>
+      <div class="cta">
+        <a class="btn primary" href="REPLACE_WITH_VIDEO_URL" target="_blank" rel="noopener">Watch the 4-min demo ▸</a>
+        <a class="btn" href="#primitive">See the primitive</a>
+      </div>
+      <div class="pillrow">
+        <span class="pill"><b>4</b> analysts → debate → trader</span>
+        <span class="pill">code-owned <b>Kelly</b> + risk gate</span>
+        <span class="pill">signed <b>evidence</b> per trade</span>
+        <span class="pill">on-chain <b>consensus</b> feed</span>
+      </div>
+    </div>
+    <div>
+      <svg class="orbit" viewBox="0 0 512 512" aria-label="agents reaching consensus">
+        <defs>
+          <linearGradient id="g" x1="0" y1="0" x2="1" y2="1">
+            <stop offset="0" stop-color="#58a6ff"/><stop offset="1" stop-color="#3fb950"/>
+          </linearGradient>
+        </defs>
+        <circle class="ring" cx="256" cy="256" r="150"/>
+        <g class="spin">
+          <line class="spoke" x1="256" y1="256" x2="256" y2="106"/>
+          <line class="spoke" x1="256" y1="256" x2="386" y2="181"/>
+          <line class="spoke" x1="256" y1="256" x2="386" y2="331"/>
+          <line class="spoke" x1="256" y1="256" x2="256" y2="406"/>
+          <line class="spoke" x1="256" y1="256" x2="126" y2="331"/>
+          <line class="spoke" x1="256" y1="256" x2="126" y2="181"/>
+          <circle class="node pulse" cx="256" cy="106" r="20"/>
+          <circle class="node pulse" cx="386" cy="181" r="20" style="animation-delay:.4s"/>
+          <circle class="node pulse" cx="386" cy="331" r="20" style="animation-delay:.8s"/>
+          <circle class="node pulse" cx="256" cy="406" r="20" style="animation-delay:1.2s"/>
+          <circle class="node pulse" cx="126" cy="331" r="20" style="animation-delay:1.6s"/>
+          <circle class="node pulse" cx="126" cy="181" r="20" style="animation-delay:2s"/>
+        </g>
+        <circle class="core" cx="256" cy="256" r="34"/>
+      </svg>
+    </div>
+  </div>
+</section>
+
+<section id="why">
+  <div class="wrap">
+    <div class="eyebrow">The insight</div>
+    <h2 class="h2">Predict's price is a probability — but a driftless one.</h2>
+    <p class="sub">DeepBook Predict mints binary options against an oracle's volatility surface. That surface is
+      risk-neutral: it assumes zero drift. So re-pricing it gives you no edge. The edge is in estimating the
+      <em>real-world</em> probability it ignores — momentum, order flow, funding, catalysts. And today's
+      on-chain trading bots are black boxes. Quorum fixes both.</p>
+    <div class="cols">
+      <div class="card"><h3>Transparent by construction</h3><p>Every decision streams live — analyst signals,
+        bull/bear debate, the trader's probability, the edge, the risk verdict — and is sealed into a
+        signed, content-hashed evidence bundle. Auditable, not a black box.</p></div>
+      <div class="card"><h3>Disciplined by design</h3><p>A deterministic quant core owns the arithmetic:
+        edge = P<sub>subjective</sub> − P<sub>market</sub>, fractional Kelly sizing, and a code-owned risk gate
+        (time-to-expiry, vol regime, exposure, daily-loss kill switch). It abstains when there's no edge —
+        which is most of the time.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="primitive">
+  <div class="wrap">
+    <div class="eyebrow grad">The primitive</div>
+    <h2 class="h2">Quorum doesn't just consume Predict — it emits a new on-chain feed.</h2>
+    <p class="sub">Every run publishes its consensus to a shared <span class="mono">ConsensusOracle</span> object in
+      our own <span class="mono">quorum_oracle</span> Move package. Sui has no forward-looking, reasoning-derived
+      probability benchmark today. This is one — readable by any protocol, in basis points, backed by the
+      evidence hash that produced it.</p>
+
+    <div class="feature">
+      <div class="grid">
+        <div>
+          <h3 style="margin:0 0 4px;font-size:20px">ConsensusOracle <span class="mono" style="color:var(--dim);font-size:13px">· quorum_oracle::consensus</span></h3>
+          <p style="color:var(--soft);margin:0 0 14px">Cap-gated <span class="mono">publish</span>, keyless
+            <span class="mono">read</span>, a <span class="mono">ConsensusPublished</span> event for indexers.
+            Publishing needs only the desk key — <b>no DUSDC</b> — so the feed works even in the keyless demo.</p>
+          <div class="fieldgrid">
+            <div class="field"><div class="k">consensus P(up)</div><div class="v grad">basis points</div></div>
+            <div class="field"><div class="k">confidence</div><div class="v">bps</div></div>
+            <div class="field"><div class="k">disagreement index</div><div class="v">bps</div></div>
+            <div class="field"><div class="k">market P(up)</div><div class="v">bps</div></div>
+            <div class="field"><div class="k">expiry</div><div class="v">epoch ms</div></div>
+            <div class="field"><div class="k">evidence hash</div><div class="v">sha-256</div></div>
+          </div>
+        </div>
+        <div>
+<pre><span class="c">// any protocol reads the latest consensus — keyless</span>
+<span class="b">public fun</span> read(
+  oracle: &ConsensusOracle,
+  oracle_id: ID,
+): (u64, u64, u64, u64, u64, u64)
+
+<span class="c">// → (prob_up, confidence, disagreement,</span>
+<span class="c">//    market_prob, expiry_ms, published_at_ms)</span>
+
+<span class="c">// emitted on every publish</span>
+<span class="b">public struct</span> <span class="g">ConsensusPublished</span> <span class="b">has</span> copy, drop {
+  oracle: ID,
+  reading: Reading,
+}</pre>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="how">
+  <div class="wrap">
+    <div class="eyebrow">How it works</div>
+    <h2 class="h2">One pipeline, fully event-sourced.</h2>
+    <p class="sub">The same loop runs for three personas — a keyless beginner (heuristic, paper), an analyst
+      (their own probability), and a trader (full Gemini debate). Every stage emits a typed event the CLI,
+      the live UI, and the evidence bundle all consume.</p>
+    <div class="flow">
+      <div class="step"><div class="n">01</div><h4>Analysts</h4><p>Volatility · momentum · catalyst · flow reason over the live SVI surface + market data.</p></div>
+      <div class="step"><div class="n">02</div><h4>Debate</h4><p>A bull and bear stress-test the view.</p></div>
+      <div class="step"><div class="n">03</div><h4>Trader</h4><p>Synthesizes one calibrated P(up).</p></div>
+      <div class="step"><div class="n">04</div><h4>Quant</h4><p>Edge vs. market, fractional Kelly sizing — code-owned, unit-tested.</p></div>
+      <div class="step"><div class="n">05</div><h4>Risk gate</h4><p>Vetoes / resizes on regime, exposure, expiry, daily-loss.</p></div>
+      <div class="step"><div class="n">06</div><h4>Execute</h4><p>Real mint on DeepBook Predict testnet via a PredictManager.</p></div>
+      <div class="step win"><div class="n">07</div><h4>Publish ▸ on-chain</h4><p>Consensus written to the ConsensusOracle as a reusable primitive.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="compose">
+  <div class="wrap">
+    <div class="eyebrow grad">Composability</div>
+    <h2 class="h2">A feed other protocols build on.</h2>
+    <p class="sub">Option vaults to price and skew, liquidation engines, other desks — any of them can read
+      Quorum's consensus. We ship a working downstream consumer: an option vault that sizes a directional
+      tilt from the feed, discounted by the disagreement index.</p>
+<pre><span class="c">$</span> bun run oracle consumer &lt;oracleId&gt;
+
+📡 Consensus for oracle 0xe69455da21…
+   P(up)        <span class="g">58.0%</span>
+   confidence   71.0%
+   disagreement 18.0%
+   market P(up) 51.0%
+   edge         <span class="g">+7.0%</span>
+
+🏦 Vault (downstream consumer) decision
+   reads Quorum consensus → tilts <span class="b">4.1%</span> of the book toward <span class="g">UP</span>
+   (edge +7.0% × confidence 71% × trust 82%, capped at 20%)</pre>
+  </div>
+</section>
+
+<section id="tech">
+  <div class="wrap">
+    <div class="eyebrow">Built on Sui</div>
+    <h2 class="h2">Real testnet, first-principles.</h2>
+    <div class="grid3">
+      <div class="tile"><div class="ic">⛓️</div><h4>DeepBook Predict</h4><p>Live market feed, MarketKey, <span class="mono">get_trade_amounts</span> pricing via devInspect, mint/redeem, PredictManager — all <span class="mono">@mysten/sui</span> PTBs.</p></div>
+      <div class="tile"><div class="ic">📐</div><h4>Quant core</h4><p>SVI surface → digital-option P(up)=N(d₂), edge, fractional Kelly. Unit-tested.</p></div>
+      <div class="tile"><div class="ic">🤝</div><h4>quorum_oracle</h4><p>Our Move package: shared object, cap-gated publish, keyless read, event. Deployed on testnet.</p></div>
+      <div class="tile"><div class="ic">🛡️</div><h4>Code-owned risk</h4><p>Time-to-expiry, vol regime, exposure caps, daily-loss kill switch, idempotency.</p></div>
+      <div class="tile"><div class="ic">📜</div><h4>Signed evidence</h4><p>Every run is content-hashed + Ed25519-signed — reconstructable from the event log alone.</p></div>
+      <div class="tile"><div class="ic">🖥️</div><h4>Live generative UI</h4><p>Bun.serve SSE desk: watch the debate, odds, P&L, and the on-chain publish stream live.</p></div>
+    </div>
+  </div>
+</section>
+
+<section id="try">
+  <div class="wrap">
+    <div class="eyebrow">Run it</div>
+    <h2 class="h2">Keyless in one command.</h2>
+<pre><span class="c"># no wallet, no funds — watch the full pipeline on a live market</span>
+bun install &amp;&amp; bun run desk
+
+<span class="c"># live web desk (SSE)</span>
+bun run serve            <span class="c"># → http://localhost:8787</span>
+
+<span class="c"># the on-chain primitive</span>
+bun run oracle publish              <span class="c"># publish consensus (no DUSDC)</span>
+bun run oracle consumer &lt;oracleId&gt;  <span class="c"># a vault reads the feed</span></pre>
+
+    <div class="band">
+      <h3>See the agents reach consensus — and write it on-chain.</h3>
+      <p>A transparent, auditable prediction desk and a reusable probability oracle for the Sui agent economy.</p>
+      <div style="display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+        <a class="btn primary" href="REPLACE_WITH_VIDEO_URL" target="_blank" rel="noopener">Watch the demo ▸</a>
+        <a class="btn" href="REPLACE_WITH_REPO_URL" target="_blank" rel="noopener">Read the code</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<footer>
+  <div class="wrap">
+    <div class="brand mono"><img src="../assets/logo.png" alt="" style="width:22px;height:22px;border-radius:5px;vertical-align:middle" /> QUORUM</div>
+    <div>
+      Sui Overflow 2026 · DeepBook Predict ·
+      <a href="REPLACE_WITH_REPO_URL" target="_blank" rel="noopener">GitHub</a> ·
+      <a href="REPLACE_WITH_VIDEO_URL" target="_blank" rel="noopener">Demo</a> ·
+      built by <a href="https://github.com/manny-uncharted" target="_blank" rel="noopener">@mannyuncharted</a>
+    </div>
+  </div>
+  <div class="wrap" style="margin-top:10px">
+    <span class="placeholder mono" style="font-size:12px">[YOU] replace REPLACE_WITH_REPO_URL / REPLACE_WITH_VIDEO_URL before deploy; optional: add the published quorum_oracle package id + a publish tx link.</span>
+  </div>
+</footer>
+
+</body>
+</html>

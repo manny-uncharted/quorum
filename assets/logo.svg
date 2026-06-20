@@ -1,0 +1,33 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="512" height="512" viewBox="0 0 512 512" role="img" aria-label="Quorum">
+  <defs>
+    <linearGradient id="acc" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#58a6ff"/>
+      <stop offset="1" stop-color="#3fb950"/>
+    </linearGradient>
+  </defs>
+  <rect width="512" height="512" rx="96" fill="#0b0e14"/>
+  <!-- quorum motif: a ring of agents reaching consensus around a center -->
+  <g fill="none" stroke="#1e2533" stroke-width="2">
+    <circle cx="256" cy="256" r="150"/>
+  </g>
+  <g fill="url(#acc)">
+    <circle cx="256" cy="106" r="20"/>
+    <circle cx="386" cy="181" r="20"/>
+    <circle cx="386" cy="331" r="20"/>
+    <circle cx="256" cy="406" r="20"/>
+    <circle cx="126" cy="331" r="20"/>
+    <circle cx="126" cy="181" r="20"/>
+  </g>
+  <!-- convergence lines to the center decision -->
+  <g stroke="url(#acc)" stroke-width="3" opacity="0.5">
+    <line x1="256" y1="106" x2="256" y2="256"/>
+    <line x1="386" y1="181" x2="256" y2="256"/>
+    <line x1="386" y1="331" x2="256" y2="256"/>
+    <line x1="256" y1="406" x2="256" y2="256"/>
+    <line x1="126" y1="331" x2="256" y2="256"/>
+    <line x1="126" y1="181" x2="256" y2="256"/>
+  </g>
+  <circle cx="256" cy="256" r="34" fill="#d7dce5"/>
+  <circle cx="256" cy="256" r="34" fill="none" stroke="url(#acc)" stroke-width="4"/>
+  <text x="256" y="476" text-anchor="middle" font-family="ui-monospace,Menlo,monospace" font-size="40" fill="#d7dce5" letter-spacing="6">QUORUM</text>
+</svg>

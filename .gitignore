@@ -1,0 +1,36 @@
+# --- secrets / env ---------------------------------------------------------
+.env
+.env.*
+!.env.example
+
+# --- dependencies ----------------------------------------------------------
+node_modules/
+.pnp
+.pnp.js
+
+# --- runtime output --------------------------------------------------------
+data/                 # generated portfolio, P&L, evidence bundles
+.veridex/             # transparency logs
+*.log
+logs/
+
+# --- builds / caches -------------------------------------------------------
+dist/
+build/
+out/
+.cache/
+coverage/
+*.tsbuildinfo
+
+# --- Move build ------------------------------------------------------------
+move/**/build/
+
+# --- editors / OS ----------------------------------------------------------
+.DS_Store
+.idea/
+.vscode/
+*.swp
+Thumbs.db
+VIDEO.md
+SUBMISSION.md
+DEMO_SCRIPT.md
