@@ -1,3 +1,0 @@
-module.exports=[18622,(a,b,c)=>{b.exports=a.x("next/dist/compiled/next-server/app-page-turbo.runtime.prod.js",()=>require("next/dist/compiled/next-server/app-page-turbo.runtime.prod.js"))},33838,(a,b,c)=>{"use strict";b.exports=a.r(18622)},71624,(a,b,c)=>{"use strict";b.exports=a.r(33838).vendored["react-ssr"].ReactJsxRuntime},28831,(a,b,c)=>{"use strict";b.exports=a.r(33838).vendored["react-ssr"].React},13753,(a,b,c)=>{"use strict";b.exports=a.r(33838).vendored.contexts.AppRouterContext},65999,(a,b,c)=>{"use strict";b.exports=a.r(33838).vendored["react-ssr"].ReactServerDOMTurbopackClient}];
-
-//# sourceMappingURL=%5Broot-of-the-server%5D__264ba9ab._.js.map
