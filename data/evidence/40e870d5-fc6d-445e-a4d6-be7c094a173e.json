@@ -1,0 +1,376 @@
+{
+  "runId": "40e870d5-fc6d-445e-a4d6-be7c094a173e",
+  "createdAt": "2026-06-21T09:40:44.870Z",
+  "hash": "05554e2b45069c1879b4b04046c266537d2076fcfb0b111c28c2dfa1ab5cefc5",
+  "body": {
+    "runId": "40e870d5-fc6d-445e-a4d6-be7c094a173e",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "down",
+            "strength": 0.85,
+            "confidence": 0.9,
+            "summary": "The current spot of 64,053.24 is 108.76 points (0.17%) below the strike of 64,162 with only 35 minutes to expiry. At 21.13% realized volatility, a 1-sigma move is approximately 110 points, putting the actual probability of expiring above the strike at roughly 16%. Buying the 'up' option at the market-implied price of 51.18% is highly negative expected value, making 'down' the clear statistical choice."
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "down",
+            "strength": 0.68,
+            "confidence": 0.75,
+            "summary": "BTC's live spot has declined to 64,053.24, placing it 0.17% below the strike price of 64,162. With only 35 minutes remaining, this gap represents roughly one standard deviation of expected price movement, significantly lowering the probability of an upward expiry. Despite positive short-term momentum, the overbought RSI of 79.53 indicates limited room for the necessary rally, supporting a downward outlook relative to the strike."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "down",
+            "strength": 0.85,
+            "confidence": 0.8,
+            "summary": "The live spot price of 64,053.24 has drifted significantly below the strike of 64,162, placing the 'down' outcome well in-the-money with only 35 minutes to expiry. Given the short time horizon and an estimated 35-minute volatility of approximately 0.17% ($110), BTC would need a substantial trend reversal to breach the strike. Additionally, the overbought RSI of 79.53 suggests that the recent upward momentum is likely to stall, further securing the down thesis."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "down",
+            "strength": 0.8,
+            "confidence": 0.85,
+            "summary": "The live spot price of 64,053.24 currently trades approximately 0.17% below the strike of 64,162 with only 35 minutes remaining until expiry. Given the realized volatility of 21.13%, the estimated standard deviation for this remaining period is about 0.17%, making a move above the strike a nearly 1-sigma event with less than a 17% probability of success. Despite strong short-term momentum indicated by an RSI of 79.53, the extremely tight timeframe heavily favors an expiry below the strike level."
+          }
+        }
+      ],
+      "debate": {
+        "bull": "BTC is exhibiting strong short-term upward momentum, posting a 0.23% gain over the last 15 minutes and a 0.35% rise over the past hour. At 64,053.24, the spot price sits a mere 0.17% below the 64,162 strike, a minor gap that BTC can easily erase in a single leg up. While the RSI of 79.53 is technically in overbought territory, in fast-moving crypto markets this often signals powerful, runaway buying pressure rather than an imminent reversal. Given the asset's 21.13% realized volatility, a quick spike above the strike is highly feasible before the 35-minute window closes.",
+        "bear": "Trading at 64,053.24, BTC sits 0.17% below the 64,162 strike price with a mere 35 minutes remaining until expiry. Given the 21.13% realized volatility, bridging this 108.76-point gap would require a nearly 1-sigma upward move, which carries a statistically low probability of approximately 16%. Furthermore, the extremely overbought RSI of 79.53 indicates that the recent short-term rally is severely overextended and primed to stall or reverse rather than sustain the required breakout. Consequently, with the market heavily overpricing the upward probability at 51.18%, the \"down\" outcome represents an exceptionally high-probability trade with highly favorable expected value."
+      },
+      "proposal": {
+        "subjectiveProbUp": 0.17,
+        "confidence": 0.88,
+        "abstain": false,
+        "keyDrivers": [
+          "Live spot is 0.17% below the strike with only 35 minutes remaining",
+          "Required breakout is a ~1-sigma move with a ~16% statistical probability",
+          "Extremely overbought RSI of 79.53 suggests upward momentum is exhausted",
+          "Market-implied P(up) of 51.18% is heavily overpricing the up option"
+        ],
+        "reasoning": "With BTC spot trading at 64,053.24, it sits 108.76 points below the strike. Over a 35-minute horizon, bridging this gap requires a ~1-sigma move, which has only a ~16% probability of occurring. Overbought RSI (79.53) suggests the recent rally is stalling, making the market-implied price of 51.18% highly overpriced and 'down' the mathematically superior position."
+      }
+    },
+    "plan": {
+      "decisionId": "373f2aa0-4bae-4270-84a7-3df4824dcb63",
+      "context": {
+        "market": {
+          "oracleId": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+          "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+          "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+          "asset": "BTC",
+          "expiry": "2026-06-21T10:15:00.000Z",
+          "msToExpiry": 2088939,
+          "minStrike": 50000,
+          "tickSize": 1,
+          "status": "active",
+          "settlementPrice": null,
+          "raw": {
+            "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "oracle_id": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+            "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "underlying_asset": "BTC",
+            "expiry": 1782036900000,
+            "min_strike": 50000000000000,
+            "tick_size": 1000000000,
+            "status": "active",
+            "activated_at": 1782029806954,
+            "settlement_price": null,
+            "settled_at": null,
+            "created_checkpoint": 351015426
+          }
+        },
+        "forward": 64162.848637322,
+        "spot": 64164.7016708,
+        "svi": {
+          "a": 0.000005531,
+          "b": 0.0001,
+          "sigma": 0.001,
+          "m": -0.001495481,
+          "rho": -0.711948825
+        },
+        "strikeRaw": "64162000000000",
+        "strike": 64162,
+        "riskNeutralProbUp": 0.5017566963745603,
+        "marketProbUp": 0.511756,
+        "minsToExpiry": 35
+      },
+      "direction": "down",
+      "quantity": "102407812",
+      "subjectiveProbUp": 0.17,
+      "edge": 0.34175599999999995,
+      "stakeFraction": 0.05,
+      "thesis": "With BTC spot trading at 64,053.24, it sits 108.76 points below the strike. Over a 35-minute horizon, bridging this gap requires a ~1-sigma move, which has only a ~16% probability of occurring. Overbought RSI (79.53) suggests the recent rally is stalling, making the market-implied price of 51.18% highly overpriced and 'down' the mathematically superior position. — DOWN edge 34.2% (subjective 83.0% vs market 48.8%), stake 5.0% of bankroll"
+    },
+    "verdict": {
+      "decision": "approve",
+      "maxStakeFraction": 0.05,
+      "circuitBreakers": [
+        "time-to-expiry OK (35m)",
+        "vol regime OK (29% annualized)",
+        "edge OK (34.2%)"
+      ],
+      "reasoning": "All circuit breakers passed; plan approved as sized."
+    },
+    "execution": {
+      "decisionId": "373f2aa0-4bae-4270-84a7-3df4824dcb63",
+      "ticker": "BTC-64162-2026-06-21T10:15",
+      "trade_date": "2026-06-21",
+      "action": "Sell",
+      "amountUsd": 64.29041,
+      "txHash": "paper-abc1edb2-626",
+      "signedAction": null,
+      "policyVerdicts": [],
+      "traceId": "40e870d5-fc6d-445e-a4d6-be7c094a173e",
+      "executedAt": "2026-06-21T09:40:43.866Z",
+      "surface": "simulation",
+      "provider": "deepbook-predict",
+      "status": "filled",
+      "error": null,
+      "metadata": {
+        "direction": "down",
+        "oracleId": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+        "strike": 64162,
+        "strikeRaw": "64162000000000",
+        "quantity": "102407812",
+        "edge": 0.34175599999999995,
+        "subjectiveProbUp": 0.17,
+        "marketProbUp": 0.511756,
+        "riskNeutralProbUp": 0.5017566963745603,
+        "stakeFraction": 0.05,
+        "costRaw": "64290410"
+      }
+    },
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T10:15:00.000Z",
+            "msToExpiry": 2088939,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782036900000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782029806954,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351015426
+            }
+          },
+          "forward": 64162.848637322,
+          "spot": 64164.7016708,
+          "svi": {
+            "a": 0.000005531,
+            "b": 0.0001,
+            "sigma": 0.001,
+            "m": -0.001495481,
+            "rho": -0.711948825
+          },
+          "strikeRaw": "64162000000000",
+          "strike": 64162,
+          "riskNeutralProbUp": 0.5017566963745603,
+          "marketProbUp": 0.511756,
+          "minsToExpiry": 35
+        },
+        "ts": "2026-06-21T09:40:13.120Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "down",
+          "strength": 0.8,
+          "confidence": 0.85,
+          "summary": "The live spot price of 64,053.24 currently trades approximately 0.17% below the strike of 64,162 with only 35 minutes remaining until expiry. Given the realized volatility of 21.13%, the estimated standard deviation for this remaining period is about 0.17%, making a move above the strike a nearly 1-sigma event with less than a 17% probability of success. Despite strong short-term momentum indicated by an RSI of 79.53, the extremely tight timeframe heavily favors an expiry below the strike level."
+        },
+        "ts": "2026-06-21T09:40:24.408Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "down",
+          "strength": 0.85,
+          "confidence": 0.8,
+          "summary": "The live spot price of 64,053.24 has drifted significantly below the strike of 64,162, placing the 'down' outcome well in-the-money with only 35 minutes to expiry. Given the short time horizon and an estimated 35-minute volatility of approximately 0.17% ($110), BTC would need a substantial trend reversal to breach the strike. Additionally, the overbought RSI of 79.53 suggests that the recent upward momentum is likely to stall, further securing the down thesis."
+        },
+        "ts": "2026-06-21T09:40:24.799Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "down",
+          "strength": 0.85,
+          "confidence": 0.9,
+          "summary": "The current spot of 64,053.24 is 108.76 points (0.17%) below the strike of 64,162 with only 35 minutes to expiry. At 21.13% realized volatility, a 1-sigma move is approximately 110 points, putting the actual probability of expiring above the strike at roughly 16%. Buying the 'up' option at the market-implied price of 51.18% is highly negative expected value, making 'down' the clear statistical choice."
+        },
+        "ts": "2026-06-21T09:40:25.123Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "down",
+          "strength": 0.68,
+          "confidence": 0.75,
+          "summary": "BTC's live spot has declined to 64,053.24, placing it 0.17% below the strike price of 64,162. With only 35 minutes remaining, this gap represents roughly one standard deviation of expected price movement, significantly lowering the probability of an upward expiry. Despite positive short-term momentum, the overbought RSI of 79.53 indicates limited room for the necessary rally, supporting a downward outlook relative to the strike."
+        },
+        "ts": "2026-06-21T09:40:26.348Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bull",
+        "content": "BTC is exhibiting strong short-term upward momentum, posting a 0.23% gain over the last 15 minutes and a 0.35% rise over the past hour. At 64,053.24, the spot price sits a mere 0.17% below the 64,162 strike, a minor gap that BTC can easily erase in a single leg up. While the RSI of 79.53 is technically in overbought territory, in fast-moving crypto markets this often signals powerful, runaway buying pressure rather than an imminent reversal. Given the asset's 21.13% realized volatility, a quick spike above the strike is highly feasible before the 35-minute window closes.",
+        "ts": "2026-06-21T09:40:31.889Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bear",
+        "content": "Trading at 64,053.24, BTC sits 0.17% below the 64,162 strike price with a mere 35 minutes remaining until expiry. Given the 21.13% realized volatility, bridging this 108.76-point gap would require a nearly 1-sigma upward move, which carries a statistically low probability of approximately 16%. Furthermore, the extremely overbought RSI of 79.53 indicates that the recent short-term rally is severely overextended and primed to stall or reverse rather than sustain the required breakout. Consequently, with the market heavily overpricing the upward probability at 51.18%, the \"down\" outcome represents an exceptionally high-probability trade with highly favorable expected value.",
+        "ts": "2026-06-21T09:40:36.668Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.17,
+          "confidence": 0.88,
+          "abstain": false,
+          "keyDrivers": [
+            "Live spot is 0.17% below the strike with only 35 minutes remaining",
+            "Required breakout is a ~1-sigma move with a ~16% statistical probability",
+            "Extremely overbought RSI of 79.53 suggests upward momentum is exhausted",
+            "Market-implied P(up) of 51.18% is heavily overpricing the up option"
+          ],
+          "reasoning": "With BTC spot trading at 64,053.24, it sits 108.76 points below the strike. Over a 35-minute horizon, bridging this gap requires a ~1-sigma move, which has only a ~16% probability of occurring. Overbought RSI (79.53) suggests the recent rally is stalling, making the market-implied price of 51.18% highly overpriced and 'down' the mathematically superior position."
+        },
+        "ts": "2026-06-21T09:40:43.866Z"
+      },
+      {
+        "type": "plan",
+        "plan": {
+          "decisionId": "373f2aa0-4bae-4270-84a7-3df4824dcb63",
+          "context": {
+            "market": {
+              "oracleId": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+              "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "asset": "BTC",
+              "expiry": "2026-06-21T10:15:00.000Z",
+              "msToExpiry": 2088939,
+              "minStrike": 50000,
+              "tickSize": 1,
+              "status": "active",
+              "settlementPrice": null,
+              "raw": {
+                "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+                "oracle_id": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+                "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+                "underlying_asset": "BTC",
+                "expiry": 1782036900000,
+                "min_strike": 50000000000000,
+                "tick_size": 1000000000,
+                "status": "active",
+                "activated_at": 1782029806954,
+                "settlement_price": null,
+                "settled_at": null,
+                "created_checkpoint": 351015426
+              }
+            },
+            "forward": 64162.848637322,
+            "spot": 64164.7016708,
+            "svi": {
+              "a": 0.000005531,
+              "b": 0.0001,
+              "sigma": 0.001,
+              "m": -0.001495481,
+              "rho": -0.711948825
+            },
+            "strikeRaw": "64162000000000",
+            "strike": 64162,
+            "riskNeutralProbUp": 0.5017566963745603,
+            "marketProbUp": 0.511756,
+            "minsToExpiry": 35
+          },
+          "direction": "down",
+          "quantity": "102407812",
+          "subjectiveProbUp": 0.17,
+          "edge": 0.34175599999999995,
+          "stakeFraction": 0.05,
+          "thesis": "With BTC spot trading at 64,053.24, it sits 108.76 points below the strike. Over a 35-minute horizon, bridging this gap requires a ~1-sigma move, which has only a ~16% probability of occurring. Overbought RSI (79.53) suggests the recent rally is stalling, making the market-implied price of 51.18% highly overpriced and 'down' the mathematically superior position. — DOWN edge 34.2% (subjective 83.0% vs market 48.8%), stake 5.0% of bankroll"
+        },
+        "ts": "2026-06-21T09:40:43.866Z"
+      },
+      {
+        "type": "risk_verdict",
+        "verdict": {
+          "decision": "approve",
+          "maxStakeFraction": 0.05,
+          "circuitBreakers": [
+            "time-to-expiry OK (35m)",
+            "vol regime OK (29% annualized)",
+            "edge OK (34.2%)"
+          ],
+          "reasoning": "All circuit breakers passed; plan approved as sized."
+        },
+        "ts": "2026-06-21T09:40:43.866Z"
+      },
+      {
+        "type": "execution",
+        "envelope": {
+          "decisionId": "373f2aa0-4bae-4270-84a7-3df4824dcb63",
+          "ticker": "BTC-64162-2026-06-21T10:15",
+          "trade_date": "2026-06-21",
+          "action": "Sell",
+          "amountUsd": 64.29041,
+          "txHash": "paper-abc1edb2-626",
+          "signedAction": null,
+          "policyVerdicts": [],
+          "traceId": "40e870d5-fc6d-445e-a4d6-be7c094a173e",
+          "executedAt": "2026-06-21T09:40:43.866Z",
+          "surface": "simulation",
+          "provider": "deepbook-predict",
+          "status": "filled",
+          "error": null,
+          "metadata": {
+            "direction": "down",
+            "oracleId": "0x544184b32ac257a2ec7371410ddb5fc3e94cecdd3a07e60f01fce6822923b297",
+            "strike": 64162,
+            "strikeRaw": "64162000000000",
+            "quantity": "102407812",
+            "edge": 0.34175599999999995,
+            "subjectiveProbUp": 0.17,
+            "marketProbUp": 0.511756,
+            "riskNeutralProbUp": 0.5017566963745603,
+            "stakeFraction": 0.05,
+            "costRaw": "64290410"
+          }
+        },
+        "ts": "2026-06-21T09:40:44.866Z"
+      }
+    ]
+  }
+}

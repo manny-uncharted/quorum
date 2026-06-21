@@ -1,0 +1,193 @@
+{
+  "runId": "ee77ad74-1ddd-42ba-b5ed-3f95cc639bde",
+  "createdAt": "2026-06-21T09:44:59.962Z",
+  "hash": "edf23e254da48e902ea4f130da507386aef807e91c7861659c1e30adb3a611b2",
+  "body": {
+    "runId": "ee77ad74-1ddd-42ba-b5ed-3f95cc639bde",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "up",
+            "strength": 0.95,
+            "confidence": 0.95,
+            "summary": "The live spot price of 64,111.04 is significantly above the strike price of 64,050, representing a strong safety margin for a 1-minute expiry. Strong short-term momentum with an RSI of 71.52 and positive recent returns further supports the upward bias. Given the extremely short time remaining, the probability of the price falling below the strike is very low, making 'up' a highly favorable bet."
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "up",
+            "strength": 0.95,
+            "confidence": 0.95,
+            "summary": "With only one minute remaining until expiry, the live BTC spot price of 64,111.04 is significantly above the strike price of 64,050. This price gap represents an upward deviation of approximately three standard deviations based on short-term realized volatility, making an in-the-money finish highly probable. The market-implied probability of 51.18% lags behind this rapid spot movement, presenting a strong edge."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "up",
+            "strength": 0.95,
+            "confidence": 0.95,
+            "summary": "With only 1 minute to expiry, the live spot price of 64,111.04 sits more than 61 USD above the 64,050 strike. Based on the 23.06% realized volatility, this price gap represents approximately a 3-standard-deviation cushion, making a reversion below the strike highly improbable within the remaining timeframe. Strong short-term momentum, indicated by an RSI of 71.52 and positive 15m and 1h returns, further solidifies the upward outcome."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "up",
+            "strength": 0.95,
+            "confidence": 0.95,
+            "summary": "With only one minute remaining until expiry, the live BTC spot price of 64,111.04 sits more than $61 above the strike price of 64,050. Given a 1-minute standard deviation of approximately $20 based on the 23.06% realized volatility, this cushion represents a ~3-sigma safety margin. Consequently, there is an extremely high probability that the underlying will expire above the strike."
+          }
+        }
+      ],
+      "debate": {
+        "bull": "With only one minute remaining until expiry, the live BTC spot price of 64,111.04 sits more than $61 above the 64,050 strike price. This substantial cushion represents an approximate 3-standard-deviation safety margin based on the current 23.06% realized volatility, making a downward breach in the final seconds highly improbable. Strong short-term momentum, highlighted by a bullish RSI of 71.52 and positive recent returns, further supports a secure in-the-money finish. Consequently, the market-implied probability of 51.18% severely underprices the actual likelihood of an upward outcome, presenting an exceptional edge for a bull position.",
+        "bear": "With the 14-period RSI at an overbought 71.52, the rapid short-term run-up to 64,111.04 is highly susceptible to a sudden, sharp mean-reversion pullback. Given the overall market climate of Extreme Fear (index at 23), order books are likely thin, meaning a single large market sell order could easily trigger a cascading flush back below the 64,050 strike. Additionally, the final minute before expiry is notorious for high-frequency stop-hunts and oracle-manipulation sweeps that can instantly erase a $61 cushion in highly volatile conditions. Consequently, positioning for a downward resolution offers a highly asymmetric and cheap contrarian bet against overextended short-term momentum."
+      },
+      "proposal": {
+        "subjectiveProbUp": 0.98,
+        "confidence": 0.95,
+        "abstain": false,
+        "keyDrivers": [
+          "Live spot price of 64,111.04 provides a 61.04 USD cushion above the 64,050 strike",
+          "Only 1 minute remaining to expiry, limiting the time for any downward price action",
+          "The 61 USD cushion represents a ~3-sigma safety margin based on 23.06% realized volatility",
+          "Market-implied probability of 51.18% severely lags the actual spot price movement"
+        ],
+        "reasoning": "With only 1 minute remaining, the live spot price is approximately 3 standard deviations above the strike. The probability of a reversion below 64,050 in this timeframe is extremely low, making the market-implied P(up) of 51.18% a massive mispricing."
+      }
+    },
+    "plan": null,
+    "verdict": null,
+    "execution": null,
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x48fc8f3e7ff762e6cfb5ababb7b5235c7c6ba71c962fe0fea72e72979a31f400",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T09:45:00.000Z",
+            "msToExpiry": 31520,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x48fc8f3e7ff762e6cfb5ababb7b5235c7c6ba71c962fe0fea72e72979a31f400",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782035100000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782027987035,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351007181
+            }
+          },
+          "forward": 64050.101093795,
+          "spot": 64050.170534496,
+          "svi": {
+            "a": 3.15e-7,
+            "b": 0.000004255,
+            "sigma": 0.001036235,
+            "m": -0.001780218,
+            "rho": -0.489721383
+          },
+          "strikeRaw": "64050000000000",
+          "strike": 64050,
+          "riskNeutralProbUp": 0.5010001822809951,
+          "marketProbUp": 0.511784,
+          "minsToExpiry": 1
+        },
+        "ts": "2026-06-21T09:44:30.554Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "up",
+          "strength": 0.95,
+          "confidence": 0.95,
+          "summary": "With only one minute remaining until expiry, the live BTC spot price of 64,111.04 is significantly above the strike price of 64,050. This price gap represents an upward deviation of approximately three standard deviations based on short-term realized volatility, making an in-the-money finish highly probable. The market-implied probability of 51.18% lags behind this rapid spot movement, presenting a strong edge."
+        },
+        "ts": "2026-06-21T09:44:40.294Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "up",
+          "strength": 0.95,
+          "confidence": 0.95,
+          "summary": "With only one minute remaining until expiry, the live BTC spot price of 64,111.04 sits more than $61 above the strike price of 64,050. Given a 1-minute standard deviation of approximately $20 based on the 23.06% realized volatility, this cushion represents a ~3-sigma safety margin. Consequently, there is an extremely high probability that the underlying will expire above the strike."
+        },
+        "ts": "2026-06-21T09:44:40.295Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "up",
+          "strength": 0.95,
+          "confidence": 0.95,
+          "summary": "The live spot price of 64,111.04 is significantly above the strike price of 64,050, representing a strong safety margin for a 1-minute expiry. Strong short-term momentum with an RSI of 71.52 and positive recent returns further supports the upward bias. Given the extremely short time remaining, the probability of the price falling below the strike is very low, making 'up' a highly favorable bet."
+        },
+        "ts": "2026-06-21T09:44:41.411Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "up",
+          "strength": 0.95,
+          "confidence": 0.95,
+          "summary": "With only 1 minute to expiry, the live spot price of 64,111.04 sits more than 61 USD above the 64,050 strike. Based on the 23.06% realized volatility, this price gap represents approximately a 3-standard-deviation cushion, making a reversion below the strike highly improbable within the remaining timeframe. Strong short-term momentum, indicated by an RSI of 71.52 and positive 15m and 1h returns, further solidifies the upward outcome."
+        },
+        "ts": "2026-06-21T09:44:42.455Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bull",
+        "content": "With only one minute remaining until expiry, the live BTC spot price of 64,111.04 sits more than $61 above the 64,050 strike price. This substantial cushion represents an approximate 3-standard-deviation safety margin based on the current 23.06% realized volatility, making a downward breach in the final seconds highly improbable. Strong short-term momentum, highlighted by a bullish RSI of 71.52 and positive recent returns, further supports a secure in-the-money finish. Consequently, the market-implied probability of 51.18% severely underprices the actual likelihood of an upward outcome, presenting an exceptional edge for a bull position.",
+        "ts": "2026-06-21T09:44:46.291Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bear",
+        "content": "With the 14-period RSI at an overbought 71.52, the rapid short-term run-up to 64,111.04 is highly susceptible to a sudden, sharp mean-reversion pullback. Given the overall market climate of Extreme Fear (index at 23), order books are likely thin, meaning a single large market sell order could easily trigger a cascading flush back below the 64,050 strike. Additionally, the final minute before expiry is notorious for high-frequency stop-hunts and oracle-manipulation sweeps that can instantly erase a $61 cushion in highly volatile conditions. Consequently, positioning for a downward resolution offers a highly asymmetric and cheap contrarian bet against overextended short-term momentum.",
+        "ts": "2026-06-21T09:44:52.045Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.98,
+          "confidence": 0.95,
+          "abstain": false,
+          "keyDrivers": [
+            "Live spot price of 64,111.04 provides a 61.04 USD cushion above the 64,050 strike",
+            "Only 1 minute remaining to expiry, limiting the time for any downward price action",
+            "The 61 USD cushion represents a ~3-sigma safety margin based on 23.06% realized volatility",
+            "Market-implied probability of 51.18% severely lags the actual spot price movement"
+          ],
+          "reasoning": "With only 1 minute remaining, the live spot price is approximately 3 standard deviations above the strike. The probability of a reversion below 64,050 in this timeframe is extremely low, making the market-implied P(up) of 51.18% a massive mispricing."
+        },
+        "ts": "2026-06-21T09:44:59.961Z"
+      },
+      {
+        "type": "abstain",
+        "stage": "planner",
+        "reason": "no qualifying edge / too close to expiry",
+        "ts": "2026-06-21T09:44:59.961Z"
+      }
+    ]
+  }
+}

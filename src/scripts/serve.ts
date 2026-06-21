@@ -138,9 +138,6 @@ const server = Bun.serve({
   idleTimeout: 255,
   async fetch(req) {
     const url = new URL(req.url);
-    if (url.pathname === "/") {
-      return new Response(INDEX_HTML, { headers: { "content-type": "text/html; charset=utf-8" } });
-    }
     if (url.pathname === "/api/markets") {
       const m = await fetchTradableMarkets();
       return json(
@@ -161,6 +158,17 @@ const server = Bun.serve({
       });
     }
     if (url.pathname === "/api/run") return runStream(url.searchParams);
+
+    // Serve Next.js static export from the "web" directory
+    let filePath = url.pathname;
+    if (filePath === "/") filePath = "/index.html";
+    if (filePath === "/dashboard") filePath = "/dashboard.html";
+
+    const file = Bun.file(import.meta.dir + "/../../web" + filePath);
+    if (await file.exists()) {
+      return new Response(file);
+    }
+
     return new Response("not found", { status: 404 });
   },
 });

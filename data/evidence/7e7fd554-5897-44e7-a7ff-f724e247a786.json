@@ -1,0 +1,191 @@
+{
+  "runId": "7e7fd554-5897-44e7-a7ff-f724e247a786",
+  "createdAt": "2026-06-21T09:41:19.473Z",
+  "hash": "729a4cca2a28b87cd608844f4b283b98d0db092ad57c9073b671ccf9855ff62f",
+  "body": {
+    "runId": "7e7fd554-5897-44e7-a7ff-f724e247a786",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "down",
+            "strength": 0.85,
+            "confidence": 0.9,
+            "summary": "The live spot price of 64,053.24 has drifted significantly below the strike of 64,116. With only 4 minutes remaining, BTC would need a move of over 1.6 standard deviations to expire above the strike. Given the tight window and short-term volatility limits, the probability of expiring below the strike is highly elevated."
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "down",
+            "strength": 0.85,
+            "confidence": 0.9,
+            "summary": "With only 4 minutes remaining until expiry, the current BTC spot price of 64,053.24 sits approximately 0.10% below the strike level of 64,116. Given the annualized realized volatility of 21.13%, an upward move of nearly 1.7 standard deviations within this short window is highly improbable. Consequently, the contract is heavily favored to expire below the strike, supporting a high-confidence down lean."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "down",
+            "strength": 0.85,
+            "confidence": 0.9,
+            "summary": "With only 4 minutes remaining until expiry, the live spot price of 64,053.24 sits approximately 62.8 USD below the strike of 64,116. This gap represents a move of over 1.6 standard deviations based on the current 21.13% realized volatility, making a recovery highly unlikely in this short timeframe. We lean strongly down as the contract is heavily expected to expire out-of-the-money."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "down",
+            "strength": 0.9,
+            "confidence": 0.95,
+            "summary": "With only 4 minutes until expiry, the live BTC spot price of 64,053.24 has drifted significantly below the strike price of 64,116. This gap represents a 1.69 standard deviation move relative to the 21.13% realized volatility, making an upward crossing highly improbable. Consequently, the contract is highly likely to expire below the strike."
+          }
+        }
+      ],
+      "debate": {
+        "bull": "Despite the narrow 4-minute window, BTC's strong short-term momentum is supported by an RSI14 of 79.53 and positive recent returns, indicating that active buying pressure remains intact. The nominal gap of approximately $63 to the strike level represents less than a 0.1% move, a distance BTC can easily erase in seconds during sudden liquidity sweeps or short squeezes. Furthermore, the market-implied probability of expiring up remains remarkably resilient at 51.91%, suggesting derivatives markets are pricing in a high likelihood of late-stage volatility or pinning action. In fast-moving micro-windows, a single large spot market order can instantly bridge this gap, making the \"up\" contract a high-convexity play on a classic last-minute BTC spike.",
+        "bear": "With only four minutes remaining until expiry, the live BTC spot price of 64,053.24 sits nearly $63 below the strike price of 64,116, leaving virtually no time for a recovery. Overcoming this deficit requires an upward move of more than 1.6 standard deviations relative to the current 21.13% realized volatility, which is a statistical anomaly in such a microscopic timeframe. Consequently, the market-implied probability of 51.91% severely overprices the \"up\" outcome, presenting a highly favorable, high-probability opportunity for the contract to expire out-of-the-money."
+      },
+      "proposal": {
+        "subjectiveProbUp": 0.05,
+        "confidence": 0.95,
+        "abstain": false,
+        "keyDrivers": [
+          "Spot price is $62.76 below the strike with only 4 minutes remaining",
+          "An upward move of over 1.68 standard deviations is required to reach the strike",
+          "Market-implied P(up) of 51.91% is severely mispriced and fails to reflect the live spot drop"
+        ],
+        "reasoning": "With spot at 64,053.24 and strike at 64,116, BTC must rally $62.76 in 4 minutes to expire in-the-money. This represents a 1.68 standard deviation move, which is statistically highly improbable under a 21.13% realized volatility, rendering the market-implied 51.91% probability an extreme overpricing."
+      }
+    },
+    "plan": null,
+    "verdict": null,
+    "execution": null,
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x48fc8f3e7ff762e6cfb5ababb7b5235c7c6ba71c962fe0fea72e72979a31f400",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T09:45:00.000Z",
+            "msToExpiry": 249518,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x48fc8f3e7ff762e6cfb5ababb7b5235c7c6ba71c962fe0fea72e72979a31f400",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782035100000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782027987035,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351007181
+            }
+          },
+          "forward": 64116.977379245,
+          "spot": 64117.442129437,
+          "svi": {
+            "a": 9.17e-7,
+            "b": 0.00002069,
+            "sigma": 0.002129143,
+            "m": -0.00372169,
+            "rho": -0.71834178
+          },
+          "strikeRaw": "64116000000000",
+          "strike": 64116,
+          "riskNeutralProbUp": 0.5060435743820055,
+          "marketProbUp": 0.519091,
+          "minsToExpiry": 4
+        },
+        "ts": "2026-06-21T09:40:51.827Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "down",
+          "strength": 0.85,
+          "confidence": 0.9,
+          "summary": "With only 4 minutes remaining until expiry, the current BTC spot price of 64,053.24 sits approximately 0.10% below the strike level of 64,116. Given the annualized realized volatility of 21.13%, an upward move of nearly 1.7 standard deviations within this short window is highly improbable. Consequently, the contract is heavily favored to expire below the strike, supporting a high-confidence down lean."
+        },
+        "ts": "2026-06-21T09:40:58.482Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "down",
+          "strength": 0.9,
+          "confidence": 0.95,
+          "summary": "With only 4 minutes until expiry, the live BTC spot price of 64,053.24 has drifted significantly below the strike price of 64,116. This gap represents a 1.69 standard deviation move relative to the 21.13% realized volatility, making an upward crossing highly improbable. Consequently, the contract is highly likely to expire below the strike."
+        },
+        "ts": "2026-06-21T09:40:59.604Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "down",
+          "strength": 0.85,
+          "confidence": 0.9,
+          "summary": "With only 4 minutes remaining until expiry, the live spot price of 64,053.24 sits approximately 62.8 USD below the strike of 64,116. This gap represents a move of over 1.6 standard deviations based on the current 21.13% realized volatility, making a recovery highly unlikely in this short timeframe. We lean strongly down as the contract is heavily expected to expire out-of-the-money."
+        },
+        "ts": "2026-06-21T09:41:00.589Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "down",
+          "strength": 0.85,
+          "confidence": 0.9,
+          "summary": "The live spot price of 64,053.24 has drifted significantly below the strike of 64,116. With only 4 minutes remaining, BTC would need a move of over 1.6 standard deviations to expire above the strike. Given the tight window and short-term volatility limits, the probability of expiring below the strike is highly elevated."
+        },
+        "ts": "2026-06-21T09:41:01.574Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bull",
+        "content": "Despite the narrow 4-minute window, BTC's strong short-term momentum is supported by an RSI14 of 79.53 and positive recent returns, indicating that active buying pressure remains intact. The nominal gap of approximately $63 to the strike level represents less than a 0.1% move, a distance BTC can easily erase in seconds during sudden liquidity sweeps or short squeezes. Furthermore, the market-implied probability of expiring up remains remarkably resilient at 51.91%, suggesting derivatives markets are pricing in a high likelihood of late-stage volatility or pinning action. In fast-moving micro-windows, a single large spot market order can instantly bridge this gap, making the \"up\" contract a high-convexity play on a classic last-minute BTC spike.",
+        "ts": "2026-06-21T09:41:07.755Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bear",
+        "content": "With only four minutes remaining until expiry, the live BTC spot price of 64,053.24 sits nearly $63 below the strike price of 64,116, leaving virtually no time for a recovery. Overcoming this deficit requires an upward move of more than 1.6 standard deviations relative to the current 21.13% realized volatility, which is a statistical anomaly in such a microscopic timeframe. Consequently, the market-implied probability of 51.91% severely overprices the \"up\" outcome, presenting a highly favorable, high-probability opportunity for the contract to expire out-of-the-money.",
+        "ts": "2026-06-21T09:41:12.567Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.05,
+          "confidence": 0.95,
+          "abstain": false,
+          "keyDrivers": [
+            "Spot price is $62.76 below the strike with only 4 minutes remaining",
+            "An upward move of over 1.68 standard deviations is required to reach the strike",
+            "Market-implied P(up) of 51.91% is severely mispriced and fails to reflect the live spot drop"
+          ],
+          "reasoning": "With spot at 64,053.24 and strike at 64,116, BTC must rally $62.76 in 4 minutes to expire in-the-money. This represents a 1.68 standard deviation move, which is statistically highly improbable under a 21.13% realized volatility, rendering the market-implied 51.91% probability an extreme overpricing."
+        },
+        "ts": "2026-06-21T09:41:19.472Z"
+      },
+      {
+        "type": "abstain",
+        "stage": "planner",
+        "reason": "no qualifying edge / too close to expiry",
+        "ts": "2026-06-21T09:41:19.472Z"
+      }
+    ]
+  }
+}

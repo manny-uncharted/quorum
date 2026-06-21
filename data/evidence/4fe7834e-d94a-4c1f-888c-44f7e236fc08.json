@@ -1,0 +1,376 @@
+{
+  "runId": "4fe7834e-d94a-4c1f-888c-44f7e236fc08",
+  "createdAt": "2026-06-21T08:48:59.671Z",
+  "hash": "1633e39513290f4e0509dcdba89b71988393b87ec16dc27baa473b40263363fe",
+  "body": {
+    "runId": "4fe7834e-d94a-4c1f-888c-44f7e236fc08",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "up",
+            "strength": 0.45,
+            "confidence": 0.7,
+            "summary": "With only 42 minutes until expiry, the live BTC spot price of 63,872.56 sits just above the strike of 63,866, giving the 'up' outcome a slight intrinsic advantage. Although short-term momentum is negative with a 1-hour return of -0.46%, the RSI of 37.53 suggests the selling pressure is nearing exhaustion. Given the extremely tight margin and short timeframe, a cautious upward lean is warranted as the spot currently holds above the strike level."
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "down",
+            "strength": 0.65,
+            "confidence": 0.7,
+            "summary": "With only 42 minutes to expiry, the live spot of 63,872.56 is a mere 0.01% above the strike of 63,866, offering negligible cushion against prevailing downward momentum. Short-term indicators show a clear bearish trend, with a -0.46% return over the last hour and an RSI of 37.53. Given the extreme fear sentiment and the overpricing of the market-implied P(up) relative to the baseline, the spot is expected to break below the strike before expiry."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "down",
+            "strength": 0.35,
+            "confidence": 0.3,
+            "summary": "BTC's spot price is currently just 0.01% above the strike, offering almost no margin of safety against the prevailing short-term downtrend of -0.46% over the last hour. Given the extreme fear sentiment (23) and consistent bearish momentum, the price is highly likely to break below the strike. We lean down with low confidence due to the short 42-minute window and close proximity to the strike."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "down",
+            "strength": 0.35,
+            "confidence": 0.4,
+            "summary": "BTC is currently trading at 63,872.56, holding a very thin $6.56 buffer above the strike of 63,866 with only 42 minutes to expiry. Strong short-term bearish momentum, indicated by a -0.18% 15-minute return and a -0.46% 1-hour return, suggests continued downward pressure. Given the Extreme Fear sentiment (23) and an RSI of 37.53 that still has room to fall, BTC is likely to breach the strike to the downside before expiry."
+          }
+        }
+      ],
+      "debate": {
+        "bull": "With only 42 minutes until expiry, the live BTC spot price of 63,872.56 currently sits above the strike of 63,866, giving the \"up\" contract an immediate intrinsic advantage. Although short-term momentum has been bearish, the RSI of 37.53 suggests that selling pressure is heavily exhausted and prime for a stabilization or minor rebound. Furthermore, the market-implied probability of 51.18% reflects sustained confidence that the spot price will hold above the strike level. Given the extremely brief remaining timeframe, even a flat consolidation at these current levels is sufficient to secure a successful \"up\" outcome.",
+        "bear": "With only 42 minutes remaining, BTC's spot price of 63,872.56 sits a precarious 0.01% above the 63,866 strike, offering virtually no margin of safety against the prevailing short-term downtrend. Strong bearish momentum, evidenced by a -0.46% return over the last hour, combined with an Extreme Fear sentiment score of 23, suggests that persistent selling pressure will easily drag the price below the strike before expiry. Furthermore, the market-implied probability of 51.18% is overpriced relative to the driftless baseline of 50.18%, presenting a highly favorable risk-reward profile for betting on a downward break. Given this negative trajectory, even a minor continuation of the current downward flow will erase the thin $6.56 buffer and secure a \"down\" outcome."
+      },
+      "proposal": {
+        "subjectiveProbUp": 0.46,
+        "confidence": 0.65,
+        "abstain": false,
+        "keyDrivers": [
+          "Extremely thin spot buffer of $6.56 (0.01%) above the strike",
+          "Strong short-term bearish momentum (-0.46% 1-hour return)",
+          "Market-implied P(up) is overpriced at 51.18% vs 50.18% baseline",
+          "Extreme Fear sentiment (23) indicating persistent selling pressure"
+        ],
+        "reasoning": "With 42 minutes remaining, the tiny $6.56 buffer above the strike is highly vulnerable to the prevailing negative momentum (-0.46% 1h return). Since the market-implied P(up) is overpriced relative to the driftless baseline, taking the down side represents a positive expectation play."
+      }
+    },
+    "plan": {
+      "decisionId": "c10ebe6b-ed1d-463d-8729-90ee6715548e",
+      "context": {
+        "market": {
+          "oracleId": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+          "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+          "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+          "asset": "BTC",
+          "expiry": "2026-06-21T09:30:00.000Z",
+          "msToExpiry": 2497399,
+          "minStrike": 50000,
+          "tickSize": 1,
+          "status": "active",
+          "settlementPrice": null,
+          "raw": {
+            "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "oracle_id": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+            "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "underlying_asset": "BTC",
+            "expiry": 1782034200000,
+            "min_strike": 50000000000000,
+            "tick_size": 1000000000,
+            "status": "active",
+            "activated_at": 1782027146664,
+            "settlement_price": null,
+            "settled_at": null,
+            "created_checkpoint": 351003062
+          }
+        },
+        "forward": 63866.955064742,
+        "spot": 63864.664354731,
+        "svi": {
+          "a": 0.000006535,
+          "b": 0.0001,
+          "sigma": 0.001,
+          "m": -0.000501952,
+          "rho": -0.5753697
+        },
+        "strikeRaw": "63866000000000",
+        "strike": 63866,
+        "riskNeutralProbUp": 0.5018058428666781,
+        "marketProbUp": 0.511805,
+        "minsToExpiry": 42
+      },
+      "direction": "down",
+      "quantity": "51833894",
+      "subjectiveProbUp": 0.46,
+      "edge": 0.051804999999999934,
+      "stakeFraction": 0.02530504782094743,
+      "thesis": "With 42 minutes remaining, the tiny $6.56 buffer above the strike is highly vulnerable to the prevailing negative momentum (-0.46% 1h return). Since the market-implied P(up) is overpriced relative to the driftless baseline, taking the down side represents a positive expectation play. — DOWN edge 5.2% (subjective 54.0% vs market 48.8%), stake 2.5% of bankroll"
+    },
+    "verdict": {
+      "decision": "approve",
+      "maxStakeFraction": 0.05,
+      "circuitBreakers": [
+        "time-to-expiry OK (42m)",
+        "vol regime OK (29% annualized)",
+        "edge OK (5.2%)"
+      ],
+      "reasoning": "All circuit breakers passed; plan approved as sized."
+    },
+    "execution": {
+      "decisionId": "c10ebe6b-ed1d-463d-8729-90ee6715548e",
+      "ticker": "BTC-63866-2026-06-21T09:30",
+      "trade_date": "2026-06-21",
+      "action": "Sell",
+      "amountUsd": 28.765352,
+      "txHash": "paper-12252391-e2b",
+      "signedAction": null,
+      "policyVerdicts": [],
+      "traceId": "4fe7834e-d94a-4c1f-888c-44f7e236fc08",
+      "executedAt": "2026-06-21T08:48:58.682Z",
+      "surface": "simulation",
+      "provider": "deepbook-predict",
+      "status": "filled",
+      "error": null,
+      "metadata": {
+        "direction": "down",
+        "oracleId": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+        "strike": 63866,
+        "strikeRaw": "63866000000000",
+        "quantity": "51833894",
+        "edge": 0.051804999999999934,
+        "subjectiveProbUp": 0.46,
+        "marketProbUp": 0.511805,
+        "riskNeutralProbUp": 0.5018058428666781,
+        "stakeFraction": 0.02530504782094743,
+        "costRaw": "28765352"
+      }
+    },
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T09:30:00.000Z",
+            "msToExpiry": 2497399,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782034200000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782027146664,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351003062
+            }
+          },
+          "forward": 63866.955064742,
+          "spot": 63864.664354731,
+          "svi": {
+            "a": 0.000006535,
+            "b": 0.0001,
+            "sigma": 0.001,
+            "m": -0.000501952,
+            "rho": -0.5753697
+          },
+          "strikeRaw": "63866000000000",
+          "strike": 63866,
+          "riskNeutralProbUp": 0.5018058428666781,
+          "marketProbUp": 0.511805,
+          "minsToExpiry": 42
+        },
+        "ts": "2026-06-21T08:48:24.652Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "up",
+          "strength": 0.45,
+          "confidence": 0.7,
+          "summary": "With only 42 minutes until expiry, the live BTC spot price of 63,872.56 sits just above the strike of 63,866, giving the 'up' outcome a slight intrinsic advantage. Although short-term momentum is negative with a 1-hour return of -0.46%, the RSI of 37.53 suggests the selling pressure is nearing exhaustion. Given the extremely tight margin and short timeframe, a cautious upward lean is warranted as the spot currently holds above the strike level."
+        },
+        "ts": "2026-06-21T08:48:34.586Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "down",
+          "strength": 0.65,
+          "confidence": 0.7,
+          "summary": "With only 42 minutes to expiry, the live spot of 63,872.56 is a mere 0.01% above the strike of 63,866, offering negligible cushion against prevailing downward momentum. Short-term indicators show a clear bearish trend, with a -0.46% return over the last hour and an RSI of 37.53. Given the extreme fear sentiment and the overpricing of the market-implied P(up) relative to the baseline, the spot is expected to break below the strike before expiry."
+        },
+        "ts": "2026-06-21T08:48:37.739Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "down",
+          "strength": 0.35,
+          "confidence": 0.4,
+          "summary": "BTC is currently trading at 63,872.56, holding a very thin $6.56 buffer above the strike of 63,866 with only 42 minutes to expiry. Strong short-term bearish momentum, indicated by a -0.18% 15-minute return and a -0.46% 1-hour return, suggests continued downward pressure. Given the Extreme Fear sentiment (23) and an RSI of 37.53 that still has room to fall, BTC is likely to breach the strike to the downside before expiry."
+        },
+        "ts": "2026-06-21T08:48:38.064Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "down",
+          "strength": 0.35,
+          "confidence": 0.3,
+          "summary": "BTC's spot price is currently just 0.01% above the strike, offering almost no margin of safety against the prevailing short-term downtrend of -0.46% over the last hour. Given the extreme fear sentiment (23) and consistent bearish momentum, the price is highly likely to break below the strike. We lean down with low confidence due to the short 42-minute window and close proximity to the strike."
+        },
+        "ts": "2026-06-21T08:48:40.906Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bull",
+        "content": "With only 42 minutes until expiry, the live BTC spot price of 63,872.56 currently sits above the strike of 63,866, giving the \"up\" contract an immediate intrinsic advantage. Although short-term momentum has been bearish, the RSI of 37.53 suggests that selling pressure is heavily exhausted and prime for a stabilization or minor rebound. Furthermore, the market-implied probability of 51.18% reflects sustained confidence that the spot price will hold above the strike level. Given the extremely brief remaining timeframe, even a flat consolidation at these current levels is sufficient to secure a successful \"up\" outcome.",
+        "ts": "2026-06-21T08:48:45.438Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bear",
+        "content": "With only 42 minutes remaining, BTC's spot price of 63,872.56 sits a precarious 0.01% above the 63,866 strike, offering virtually no margin of safety against the prevailing short-term downtrend. Strong bearish momentum, evidenced by a -0.46% return over the last hour, combined with an Extreme Fear sentiment score of 23, suggests that persistent selling pressure will easily drag the price below the strike before expiry. Furthermore, the market-implied probability of 51.18% is overpriced relative to the driftless baseline of 50.18%, presenting a highly favorable risk-reward profile for betting on a downward break. Given this negative trajectory, even a minor continuation of the current downward flow will erase the thin $6.56 buffer and secure a \"down\" outcome.",
+        "ts": "2026-06-21T08:48:50.641Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.46,
+          "confidence": 0.65,
+          "abstain": false,
+          "keyDrivers": [
+            "Extremely thin spot buffer of $6.56 (0.01%) above the strike",
+            "Strong short-term bearish momentum (-0.46% 1-hour return)",
+            "Market-implied P(up) is overpriced at 51.18% vs 50.18% baseline",
+            "Extreme Fear sentiment (23) indicating persistent selling pressure"
+          ],
+          "reasoning": "With 42 minutes remaining, the tiny $6.56 buffer above the strike is highly vulnerable to the prevailing negative momentum (-0.46% 1h return). Since the market-implied P(up) is overpriced relative to the driftless baseline, taking the down side represents a positive expectation play."
+        },
+        "ts": "2026-06-21T08:48:58.680Z"
+      },
+      {
+        "type": "plan",
+        "plan": {
+          "decisionId": "c10ebe6b-ed1d-463d-8729-90ee6715548e",
+          "context": {
+            "market": {
+              "oracleId": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+              "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "asset": "BTC",
+              "expiry": "2026-06-21T09:30:00.000Z",
+              "msToExpiry": 2497399,
+              "minStrike": 50000,
+              "tickSize": 1,
+              "status": "active",
+              "settlementPrice": null,
+              "raw": {
+                "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+                "oracle_id": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+                "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+                "underlying_asset": "BTC",
+                "expiry": 1782034200000,
+                "min_strike": 50000000000000,
+                "tick_size": 1000000000,
+                "status": "active",
+                "activated_at": 1782027146664,
+                "settlement_price": null,
+                "settled_at": null,
+                "created_checkpoint": 351003062
+              }
+            },
+            "forward": 63866.955064742,
+            "spot": 63864.664354731,
+            "svi": {
+              "a": 0.000006535,
+              "b": 0.0001,
+              "sigma": 0.001,
+              "m": -0.000501952,
+              "rho": -0.5753697
+            },
+            "strikeRaw": "63866000000000",
+            "strike": 63866,
+            "riskNeutralProbUp": 0.5018058428666781,
+            "marketProbUp": 0.511805,
+            "minsToExpiry": 42
+          },
+          "direction": "down",
+          "quantity": "51833894",
+          "subjectiveProbUp": 0.46,
+          "edge": 0.051804999999999934,
+          "stakeFraction": 0.02530504782094743,
+          "thesis": "With 42 minutes remaining, the tiny $6.56 buffer above the strike is highly vulnerable to the prevailing negative momentum (-0.46% 1h return). Since the market-implied P(up) is overpriced relative to the driftless baseline, taking the down side represents a positive expectation play. — DOWN edge 5.2% (subjective 54.0% vs market 48.8%), stake 2.5% of bankroll"
+        },
+        "ts": "2026-06-21T08:48:58.681Z"
+      },
+      {
+        "type": "risk_verdict",
+        "verdict": {
+          "decision": "approve",
+          "maxStakeFraction": 0.05,
+          "circuitBreakers": [
+            "time-to-expiry OK (42m)",
+            "vol regime OK (29% annualized)",
+            "edge OK (5.2%)"
+          ],
+          "reasoning": "All circuit breakers passed; plan approved as sized."
+        },
+        "ts": "2026-06-21T08:48:58.681Z"
+      },
+      {
+        "type": "execution",
+        "envelope": {
+          "decisionId": "c10ebe6b-ed1d-463d-8729-90ee6715548e",
+          "ticker": "BTC-63866-2026-06-21T09:30",
+          "trade_date": "2026-06-21",
+          "action": "Sell",
+          "amountUsd": 28.765352,
+          "txHash": "paper-12252391-e2b",
+          "signedAction": null,
+          "policyVerdicts": [],
+          "traceId": "4fe7834e-d94a-4c1f-888c-44f7e236fc08",
+          "executedAt": "2026-06-21T08:48:58.682Z",
+          "surface": "simulation",
+          "provider": "deepbook-predict",
+          "status": "filled",
+          "error": null,
+          "metadata": {
+            "direction": "down",
+            "oracleId": "0x23ba9f11d4c3216b76e71fb15f1a2132d62b760fecea4f99506b58fa054ea330",
+            "strike": 63866,
+            "strikeRaw": "63866000000000",
+            "quantity": "51833894",
+            "edge": 0.051804999999999934,
+            "subjectiveProbUp": 0.46,
+            "marketProbUp": 0.511805,
+            "riskNeutralProbUp": 0.5018058428666781,
+            "stakeFraction": 0.02530504782094743,
+            "costRaw": "28765352"
+          }
+        },
+        "ts": "2026-06-21T08:48:59.668Z"
+      }
+    ]
+  }
+}
