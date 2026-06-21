@@ -46,7 +46,11 @@ const json = (data: unknown, status = 200) =>
 const portfolio = await Portfolio.open();
 const config = await loadConfig();
 const quoteSender = Ed25519Keypair.generate().getPublicKey().toSuiAddress();
-const paper = new PredictExecutionProvider({ mode: "paper", quoteSender });
+const paper = new PredictExecutionProvider({
+  mode: "paper",
+  quoteSender,
+  slippageToleranceBps: config.risk.slippageToleranceBps,
+});
 
 function pickSource(params: URLSearchParams): SignalSource {
   const kind = params.get("signals") ?? config.signals;
@@ -150,12 +154,18 @@ const server = Bun.serve({
       );
     }
     if (url.pathname === "/api/portfolio") {
-      return json({
-        open: portfolio.open_().length,
-        exposureUsd: portfolio.openExposureUsd(),
-        realizedPnlUsd: portfolio.realizedPnlUsd(),
-        positions: portfolio.all(),
-      });
+      const release = await portfolio.lock();
+      try {
+        await portfolio.reload();
+        return json({
+          open: portfolio.open_().length,
+          exposureUsd: portfolio.openExposureUsd(),
+          realizedPnlUsd: portfolio.realizedPnlUsd(),
+          positions: portfolio.all(),
+        });
+      } finally {
+        await release();
+      }
     }
     if (url.pathname === "/api/run") return runStream(url.searchParams);
 

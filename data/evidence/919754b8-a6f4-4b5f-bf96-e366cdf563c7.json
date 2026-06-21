@@ -1,0 +1,175 @@
+{
+  "runId": "919754b8-a6f4-4b5f-bf96-e366cdf563c7",
+  "createdAt": "2026-06-21T13:03:39.601Z",
+  "hash": "f4445d5ea0e73c5f676042ea204bc6e6a1090709676c984d92654fff5c295cc5",
+  "body": {
+    "runId": "919754b8-a6f4-4b5f-bf96-e366cdf563c7",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "neutral",
+            "strength": 0.2000008814422638,
+            "confidence": 0.8,
+            "summary": "Market-implied P(up) 51.0% vs risk-neutral 50.0% (spread 1.00pp). spot 64,095.31 · ret15m 0.16% · ret1h 0.04% · RSI14 79.12 · realizedVol 27.43% · funding 0.00% · fear&greed 23 (Extreme Fear)"
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "up",
+            "strength": 0.5494076201530819,
+            "confidence": 0.6,
+            "summary": "15m 0.158% · 1h 0.040% · RSI14 79."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "up",
+            "strength": 0.54,
+            "confidence": 0.4,
+            "summary": "Fear & Greed 23 (Extreme Fear) — extremes are mean-reverting."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "neutral",
+            "strength": 0.08324,
+            "confidence": 0.3,
+            "summary": "Funding 0.004% (longs pay)."
+          }
+        }
+      ],
+      "proposal": {
+        "subjectiveProbUp": 0.5344758341334765,
+        "confidence": 0.503225806451613,
+        "abstain": false,
+        "keyDrivers": [
+          "live momentum/RSI",
+          "Fear & Greed",
+          "funding/skew"
+        ],
+        "reasoning": "Deterministic heuristic anchored on the market baseline; leans from live momentum, sentiment, and positioning. Subjective P(up) 53.4%."
+      }
+    },
+    "plan": null,
+    "verdict": null,
+    "execution": null,
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x416d466de685d3c196079b52e00e08c72b68dd82d32b77847d9083f10b197bd1",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T13:45:00.000Z",
+            "msToExpiry": 2485651,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x416d466de685d3c196079b52e00e08c72b68dd82d32b77847d9083f10b197bd1",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782049500000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782042426865,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351072508
+            }
+          },
+          "forward": 64043.363079695,
+          "spot": 64043.507488552,
+          "svi": {
+            "a": 0.000008736,
+            "b": 0.0001,
+            "sigma": 0.001,
+            "m": 0.001055258,
+            "rho": -0.059707697
+          },
+          "strikeRaw": "64043000000000",
+          "strike": 64043,
+          "riskNeutralProbUp": 0.5001639559278868,
+          "marketProbUp": 0.510164,
+          "minsToExpiry": 41
+        },
+        "ts": "2026-06-21T13:03:36.441Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "neutral",
+          "strength": 0.2000008814422638,
+          "confidence": 0.8,
+          "summary": "Market-implied P(up) 51.0% vs risk-neutral 50.0% (spread 1.00pp). spot 64,095.31 · ret15m 0.16% · ret1h 0.04% · RSI14 79.12 · realizedVol 27.43% · funding 0.00% · fear&greed 23 (Extreme Fear)"
+        },
+        "ts": "2026-06-21T13:03:39.599Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "up",
+          "strength": 0.5494076201530819,
+          "confidence": 0.6,
+          "summary": "15m 0.158% · 1h 0.040% · RSI14 79."
+        },
+        "ts": "2026-06-21T13:03:39.599Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "up",
+          "strength": 0.54,
+          "confidence": 0.4,
+          "summary": "Fear & Greed 23 (Extreme Fear) — extremes are mean-reverting."
+        },
+        "ts": "2026-06-21T13:03:39.599Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "neutral",
+          "strength": 0.08324,
+          "confidence": 0.3,
+          "summary": "Funding 0.004% (longs pay)."
+        },
+        "ts": "2026-06-21T13:03:39.599Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.5344758341334765,
+          "confidence": 0.503225806451613,
+          "abstain": false,
+          "keyDrivers": [
+            "live momentum/RSI",
+            "Fear & Greed",
+            "funding/skew"
+          ],
+          "reasoning": "Deterministic heuristic anchored on the market baseline; leans from live momentum, sentiment, and positioning. Subjective P(up) 53.4%."
+        },
+        "ts": "2026-06-21T13:03:39.599Z"
+      },
+      {
+        "type": "abstain",
+        "stage": "planner",
+        "reason": "no qualifying edge / too close to expiry",
+        "ts": "2026-06-21T13:03:39.599Z"
+      }
+    ]
+  }
+}

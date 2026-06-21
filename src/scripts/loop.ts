@@ -47,7 +47,14 @@ function makeSignalSource(config: DeskConfig): SignalSource {
 }
 
 async function settleDue(portfolio: Portfolio): Promise<void> {
-  const open = portfolio.open_();
+  const release = await portfolio.lock();
+  let open = [];
+  try {
+    await portfolio.reload();
+    open = portfolio.open_();
+  } finally {
+    await release();
+  }
   if (open.length === 0) return;
   const markets = await fetchMarkets();
   for (const p of open) {
@@ -70,7 +77,11 @@ async function main(): Promise<void> {
   const signalSource = makeSignalSource(config);
   const portfolio = await Portfolio.open();
   const quoteSender = Ed25519Keypair.generate().getPublicKey().toSuiAddress();
-  const executor = new PredictExecutionProvider({ mode: "paper", quoteSender });
+  const executor = new PredictExecutionProvider({
+    mode: "paper",
+    quoteSender,
+    slippageToleranceBps: config.risk.slippageToleranceBps,
+  });
 
   console.log(
     `Quorum loop · signals=${signalSource.id} · every ${intervalMs / 1000}s · top ${count} · ` +
@@ -110,6 +121,12 @@ async function main(): Promise<void> {
               : "no trade";
         console.log(`   ${market.asset} ${market.oracleId.slice(0, 10)}… ${context.minsToExpiry}m → ${tag}`);
         await writeEvidence(await buildEvidence(result));
+      }
+      const printRelease = await portfolio.lock();
+      try {
+        await portfolio.reload();
+      } finally {
+        await printRelease();
       }
       console.log(
         `   portfolio: ${portfolio.open_().length} open · exposure $${portfolio.openExposureUsd().toFixed(2)} · realized $${portfolio.realizedPnlUsd().toFixed(2)}`,

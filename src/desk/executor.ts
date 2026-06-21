@@ -40,6 +40,8 @@ export interface PredictExecutorOptions {
   managerId?: string;
   /** Address used to price devInspect quotes; defaults to the keypair's. */
   quoteSender?: string;
+  /** Slippage tolerance in basis points. Defaults to 50 (0.5%). */
+  slippageToleranceBps?: number;
 }
 
 const PROVIDER_ID = "deepbook-predict";
@@ -66,6 +68,7 @@ export class PredictExecutionProvider {
   private readonly keypair?: Ed25519Keypair;
   private readonly managerId?: string;
   private readonly quoteSender: string;
+  private readonly slippageToleranceBps: number;
 
   constructor(opts: PredictExecutorOptions) {
     this.mode = opts.mode;
@@ -74,6 +77,7 @@ export class PredictExecutionProvider {
     const fromKey = opts.keypair?.getPublicKey().toSuiAddress();
     this.quoteSender =
       opts.quoteSender ?? fromKey ?? "0x".padEnd(66, "0"); // dummy for views
+    this.slippageToleranceBps = opts.slippageToleranceBps ?? 50;
     if (this.mode === "testnet" && (!this.keypair || !this.managerId)) {
       throw new Error("testnet mode requires keypair + managerId");
     }
@@ -117,13 +121,19 @@ export class PredictExecutionProvider {
     const amountUsd = fromDusdcRaw(costRaw);
 
     if (this.mode === "paper") {
+      const maxCostRaw = (costRaw * (10000n + BigInt(this.slippageToleranceBps))) / 10000n;
       return {
         ...base,
         amountUsd,
         surface: "simulation",
         status: "filled",
         txHash: `paper-${randomUUID().slice(0, 12)}`,
-        metadata: { ...base.metadata, costRaw: costRaw.toString() },
+        metadata: {
+          ...base.metadata,
+          costRaw: costRaw.toString(),
+          maxCostRaw: maxCostRaw.toString(),
+          slippageToleranceBps: this.slippageToleranceBps.toString()
+        },
       };
     }
     return this.executeTestnet(plan, base, costRaw, amountUsd);
@@ -137,8 +147,11 @@ export class PredictExecutionProvider {
   ): Promise<ExecutionEnvelope> {
     const owner = this.keypair!.getPublicKey().toSuiAddress();
     const tx = new Transaction();
-    // Fund with a small buffer over the quote, then mint atomically.
-    await addDeposit(tx, this.managerId!, owner, costRaw + toDusdcRaw(0.25));
+    // Calculate maximum allowed trade premium with slippage protection
+    const maxCostRaw = (costRaw * (10000n + BigInt(this.slippageToleranceBps))) / 10000n;
+
+    // Fund with exactly maxCostRaw instead of costRaw + buffer, then mint atomically.
+    await addDeposit(tx, this.managerId!, owner, maxCostRaw);
     addMint(tx, this.managerId!, intentOf(plan));
 
     const res = await client.signAndExecuteTransaction({
@@ -160,6 +173,8 @@ export class PredictExecutionProvider {
       metadata: {
         ...base.metadata,
         costRaw: costRaw.toString(),
+        maxCostRaw: maxCostRaw.toString(),
+        slippageToleranceBps: this.slippageToleranceBps.toString(),
         explorer: `https://suiscan.xyz/testnet/tx/${res.digest}`,
       },
     };

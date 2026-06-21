@@ -134,10 +134,20 @@ async function main(): Promise<void> {
     const managerId = process.env.PREDICT_MANAGER_ID?.trim();
     if (!managerId) throw new Error("testnet mode needs PREDICT_MANAGER_ID in .env (run `bun run spike` once).");
     quoteSender = signer.getPublicKey().toSuiAddress();
-    executor = new PredictExecutionProvider({ mode, keypair: signer, managerId, quoteSender });
+    executor = new PredictExecutionProvider({
+      mode,
+      keypair: signer,
+      managerId,
+      quoteSender,
+      slippageToleranceBps: config.risk.slippageToleranceBps,
+    });
   } else {
     quoteSender = Ed25519Keypair.generate().getPublicKey().toSuiAddress();
-    executor = new PredictExecutionProvider({ mode: "paper", quoteSender });
+    executor = new PredictExecutionProvider({
+      mode: "paper",
+      quoteSender,
+      slippageToleranceBps: config.risk.slippageToleranceBps,
+    });
   }
 
   const signalSource = pickSignalSource(config);
@@ -187,6 +197,12 @@ async function main(): Promise<void> {
   const outcome = result.execution
     ? `${result.execution.surface}/${result.execution.status}`
     : "no trade";
+  const finalRelease = await portfolio.lock();
+  try {
+    await portfolio.reload();
+  } finally {
+    await finalRelease();
+  }
   console.log(
     `📈 Portfolio: ${portfolio.open_().length} open · exposure $${portfolio.openExposureUsd().toFixed(2)} · ` +
       `realized P&L $${portfolio.realizedPnlUsd().toFixed(2)}`,

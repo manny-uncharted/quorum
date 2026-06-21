@@ -14,6 +14,7 @@
     "serve": "bun run src/scripts/serve.ts",
     "spike": "bun run src/scripts/spike.ts",
     "oracle": "bun run src/scripts/oracle.ts",
+    "generate-wallet": "bun run src/scripts/generate-wallet.ts",
     "test": "bun test",
     "typecheck": "tsc --noEmit"
   },

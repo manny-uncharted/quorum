@@ -114,25 +114,45 @@ export async function runDesk(opts: DeskRunOptions): Promise<DeskRunResult> {
   }
 
   // Portfolio-level circuit breakers (idempotency, concurrency, exposure, daily loss).
+  let lockRelease: (() => Promise<void>) | null = null;
   if (opts.portfolio) {
-    const estCostUsd = finalPlan.stakeFraction * bankrollUsd;
-    const gate = opts.portfolio.canOpen(
-      finalPlan,
-      estCostUsd,
-      opts.portfolioLimits ?? DEFAULT_PORTFOLIO_LIMITS,
-    );
-    if (!gate.ok) {
-      log.emit({ type: "portfolio_block", reason: gate.reason ?? "blocked" });
-      log.emit({ type: "abstain", stage: "portfolio", reason: gate.reason ?? "blocked" });
-      return done(analysis, finalPlan, verdict, null);
+    lockRelease = await opts.portfolio.lock();
+    try {
+      await opts.portfolio.reload();
+      const estCostUsd = finalPlan.stakeFraction * bankrollUsd;
+      const gate = opts.portfolio.canOpen(
+        finalPlan,
+        estCostUsd,
+        opts.portfolioLimits ?? DEFAULT_PORTFOLIO_LIMITS,
+      );
+      if (!gate.ok) {
+        log.emit({ type: "portfolio_block", reason: gate.reason ?? "blocked" });
+        log.emit({ type: "abstain", stage: "portfolio", reason: gate.reason ?? "blocked" });
+        await lockRelease();
+        lockRelease = null;
+        return done(analysis, finalPlan, verdict, null);
+      }
+    } catch (err) {
+      if (lockRelease) {
+        await lockRelease();
+        lockRelease = null;
+      }
+      throw err;
     }
   }
 
-  const execution = await executor.execute(finalPlan, { runId });
-  log.emit({ type: "execution", envelope: execution });
+  let execution: ExecutionEnvelope | null = null;
+  try {
+    execution = await executor.execute(finalPlan, { runId });
+    log.emit({ type: "execution", envelope: execution });
 
-  if (opts.portfolio && execution.status === "filled") {
-    await opts.portfolio.record(finalPlan, execution);
+    if (opts.portfolio && execution.status === "filled") {
+      await opts.portfolio.record(finalPlan, execution);
+    }
+  } finally {
+    if (lockRelease) {
+      await lockRelease();
+    }
   }
   return done(analysis, finalPlan, verdict, execution);
 }

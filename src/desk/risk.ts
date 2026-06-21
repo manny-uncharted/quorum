@@ -22,6 +22,8 @@ export interface RiskLimits {
   maxAnnualizedVol: number;
   /** Minimum edge (probability points) after costs. */
   minEdge: number;
+  /** Slippage tolerance in basis points. */
+  slippageToleranceBps: number;
 }
 
 export const DEFAULT_RISK_LIMITS: RiskLimits = {
@@ -30,6 +32,7 @@ export const DEFAULT_RISK_LIMITS: RiskLimits = {
   maxStakeFraction: 0.05,
   maxAnnualizedVol: 2.5, // 250% — testnet BTC vol can be high; tune for prod
   minEdge: 0.03,
+  slippageToleranceBps: 50, // 0.5%
 };
 
 /** Annualized implied vol from the ATM total variance and time to expiry. */

@@ -238,7 +238,29 @@ sui client publish move/quorum_oracle      # → QUORUM_ORACLE_PACKAGE (package)
                                            #   QUORUM_ORACLE_CAP (PublisherCap, owned by the desk key)
 ```
 
+#### Your Deployed Testnet Oracle Config
+If you wish to use the already deployed oracle package and shared object on Sui Testnet, use the following keys in your `.env`:
+```env
+QUORUM_ORACLE_PACKAGE=0x9fec4e3c0429007702b7bc543ca2ae3331c9908a548d2ffa3f698a1627555e4e
+QUORUM_ORACLE_OBJECT=0x2cff2daa947469d2323c5154da96409df2833078744d4264a0293d7e870000fb
+QUORUM_ORACLE_CAP=0x99425cebdfe74e508c2d2b30d309a9ee3ad3bbed0ed3c5908959c35d75cd29cb
+```
+
 ## Deploy
+
+### Web Front-end (Next.js) on Vercel
+
+The premium Next.js dashboard ([web-next](file:///Users/mannyuncharted/Documents/gigs/veridex/quorum/web-next)) can be deployed directly to Vercel:
+1. Import the repository in the **Vercel Dashboard**.
+2. Under **Project Settings**, configure:
+   - **Root Directory**: `quorum/web-next`
+   - **Build Command**: `next build` (standard, automatically detected)
+   - **Output Directory**: `.next` (standard, automatically detected)
+3. Set the following **Environment Variable**:
+   - `QUORUM_BACKEND_URL`: The absolute URL of your hosted Bun API backend (e.g., `https://quorum-backend.railway.app`). If unset, it defaults to `http://localhost:8787` for local development.
+4. Click **Deploy**. Vercel will automatically build the Next.js application in serverless mode and reverse-proxy all `/api/...` routes to your hosted backend.
+
+### API Backend (Bun.serve) as a Service
 
 For the demo, run locally: `bun run serve` at `http://localhost:8787`.
 

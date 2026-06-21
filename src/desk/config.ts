@@ -27,6 +27,7 @@ export const DeskConfigSchema = z.object({
     maxStakeFraction: z.number().min(0).max(1),
     maxAnnualizedVol: z.number().positive(),
     minEdge: z.number().min(0).max(1),
+    slippageToleranceBps: z.number().int().nonnegative(),
   }),
   portfolio: z.object({
     maxConcurrentPositions: z.number().int().positive(),
@@ -70,6 +71,7 @@ function envOverrides(env: NodeJS.ProcessEnv): Record<string, unknown> {
   const risk: Record<string, unknown> = {};
   if (num(env.QUORUM_MIN_EDGE) !== undefined) risk.minEdge = num(env.QUORUM_MIN_EDGE);
   if (num(env.QUORUM_MAX_STAKE_FRACTION) !== undefined) risk.maxStakeFraction = num(env.QUORUM_MAX_STAKE_FRACTION);
+  if (num(env.QUORUM_SLIPPAGE_BPS) !== undefined) risk.slippageToleranceBps = num(env.QUORUM_SLIPPAGE_BPS);
   if (Object.keys(risk).length) o.risk = risk;
   const pf: Record<string, unknown> = {};
   if (num(env.QUORUM_MAX_CONCURRENT) !== undefined) pf.maxConcurrentPositions = num(env.QUORUM_MAX_CONCURRENT);

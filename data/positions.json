@@ -36,5 +36,43 @@
     "openedAt": "2026-06-21T09:40:43.866Z",
     "expiry": "2026-06-21T10:15:00.000Z",
     "status": "open"
+  },
+  {
+    "id": "2bbd6e78-1782080407228",
+    "decisionId": "2bbd6e78-c65b-4a0f-b3cc-0b054899b2c9",
+    "runId": "4890cac4-8757-4771-9b4e-06e2643cb58e",
+    "oracleId": "0x290da4ae4a5e81839dcf219267a2739974296aaaf7842b02c08d4cfa62216549",
+    "asset": "BTC",
+    "direction": "down",
+    "strike": 63622,
+    "strikeRaw": "63622000000000",
+    "quantity": "54647601",
+    "costUsd": 31.062595,
+    "edge": 0.054600999999999955,
+    "subjectiveProbUp": 0.46,
+    "surface": "simulation",
+    "txHash": "paper-23df0c99-417",
+    "openedAt": "2026-06-21T22:20:06.214Z",
+    "expiry": "2026-06-21T22:30:00.000Z",
+    "status": "open"
+  },
+  {
+    "id": "da52ac7d-1782080602812",
+    "decisionId": "da52ac7d-9ac4-4b29-93f7-02886045299d",
+    "runId": "154f2de0-efe4-47f2-bf5a-4f05c9493906",
+    "oracleId": "0x290da4ae4a5e81839dcf219267a2739974296aaaf7842b02c08d4cfa62216549",
+    "asset": "BTC",
+    "direction": "down",
+    "strike": 63683,
+    "strikeRaw": "63683000000000",
+    "quantity": "39431990",
+    "costUsd": 21.469399,
+    "edge": 0.039418000000000064,
+    "subjectiveProbUp": 0.47,
+    "surface": "simulation",
+    "txHash": "paper-bc47ca13-d6f",
+    "openedAt": "2026-06-21T22:23:21.795Z",
+    "expiry": "2026-06-21T22:30:00.000Z",
+    "status": "open"
   }
 ]

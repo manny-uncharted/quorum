@@ -52,7 +52,14 @@ async function redeemOnChain(p: Position): Promise<void> {
 
 async function main(): Promise<void> {
   const portfolio = await Portfolio.open();
-  const open = portfolio.open_();
+  const release = await portfolio.lock();
+  let open = [];
+  try {
+    await portfolio.reload();
+    open = portfolio.open_();
+  } finally {
+    await release();
+  }
   if (open.length === 0) {
     console.log("No open positions to settle.");
     return;

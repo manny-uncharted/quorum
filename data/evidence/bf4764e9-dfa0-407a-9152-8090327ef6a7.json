@@ -1,0 +1,177 @@
+{
+  "runId": "bf4764e9-dfa0-407a-9152-8090327ef6a7",
+  "createdAt": "2026-06-21T22:30:33.660Z",
+  "hash": "b84e93f960e97a2169be79b1863e7254df9e1bd64d6e3e830f851ad3903ddab9",
+  "signature": "/MYkhBlJIuKjEhF5vXXAaP7eXttWyoyy1tgqq/OR0/dCK7HTLTwxtpbGFWcNY/pHxuMif3pClovjfEeSaVrsAw==",
+  "signer": "0x2368fa52eb166f9e3a3e03371b798729ad570c8146179e5e09cab72c98cbd056",
+  "body": {
+    "runId": "bf4764e9-dfa0-407a-9152-8090327ef6a7",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "neutral",
+            "strength": 0.19998389248049975,
+            "confidence": 0.8,
+            "summary": "Market-implied P(up) 51.0% vs risk-neutral 50.0% (spread 1.00pp). spot 63,670.64 · ret15m 0.27% · ret1h 0.03% · RSI14 71.84 · realizedVol 52.28% · funding 0.01% · fear&greed 23 (Extreme Fear)"
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "up",
+            "strength": 0.7122949716025344,
+            "confidence": 0.6,
+            "summary": "15m 0.269% · 1h 0.031% · RSI14 72."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "up",
+            "strength": 0.54,
+            "confidence": 0.4,
+            "summary": "Fear & Greed 23 (Extreme Fear) — extremes are mean-reverting."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "neutral",
+            "strength": 0.13488,
+            "confidence": 0.3,
+            "summary": "Funding 0.007% (longs pay)."
+          }
+        }
+      ],
+      "proposal": {
+        "subjectiveProbUp": 0.5394508217562026,
+        "confidence": 0.503225806451613,
+        "abstain": false,
+        "keyDrivers": [
+          "live momentum/RSI",
+          "Fear & Greed",
+          "funding/skew"
+        ],
+        "reasoning": "Deterministic heuristic anchored on the market baseline; leans from live momentum, sentiment, and positioning. Subjective P(up) 53.9%."
+      }
+    },
+    "plan": null,
+    "verdict": null,
+    "execution": null,
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x14ce841edf2c811251bfcdc940597d78209bb35035396a45210c83ca0410b73a",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T23:15:00.000Z",
+            "msToExpiry": 2671035,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x14ce841edf2c811251bfcdc940597d78209bb35035396a45210c83ca0410b73a",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782083700000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782076607483,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351229319
+            }
+          },
+          "forward": 63540.56782495,
+          "spot": 63538.416732396,
+          "svi": {
+            "a": 0.000010404,
+            "b": 0.000343751,
+            "sigma": 0.001,
+            "m": 0.001039849,
+            "rho": -0.361345978
+          },
+          "strikeRaw": "63540000000000",
+          "strike": 63540,
+          "riskNeutralProbUp": 0.500410805375975,
+          "marketProbUp": 0.51041,
+          "minsToExpiry": 45
+        },
+        "ts": "2026-06-21T22:30:30.702Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "neutral",
+          "strength": 0.19998389248049975,
+          "confidence": 0.8,
+          "summary": "Market-implied P(up) 51.0% vs risk-neutral 50.0% (spread 1.00pp). spot 63,670.64 · ret15m 0.27% · ret1h 0.03% · RSI14 71.84 · realizedVol 52.28% · funding 0.01% · fear&greed 23 (Extreme Fear)"
+        },
+        "ts": "2026-06-21T22:30:33.656Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "up",
+          "strength": 0.7122949716025344,
+          "confidence": 0.6,
+          "summary": "15m 0.269% · 1h 0.031% · RSI14 72."
+        },
+        "ts": "2026-06-21T22:30:33.656Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "up",
+          "strength": 0.54,
+          "confidence": 0.4,
+          "summary": "Fear & Greed 23 (Extreme Fear) — extremes are mean-reverting."
+        },
+        "ts": "2026-06-21T22:30:33.656Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "neutral",
+          "strength": 0.13488,
+          "confidence": 0.3,
+          "summary": "Funding 0.007% (longs pay)."
+        },
+        "ts": "2026-06-21T22:30:33.656Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.5394508217562026,
+          "confidence": 0.503225806451613,
+          "abstain": false,
+          "keyDrivers": [
+            "live momentum/RSI",
+            "Fear & Greed",
+            "funding/skew"
+          ],
+          "reasoning": "Deterministic heuristic anchored on the market baseline; leans from live momentum, sentiment, and positioning. Subjective P(up) 53.9%."
+        },
+        "ts": "2026-06-21T22:30:33.656Z"
+      },
+      {
+        "type": "abstain",
+        "stage": "planner",
+        "reason": "no qualifying edge / too close to expiry",
+        "ts": "2026-06-21T22:30:33.656Z"
+      }
+    ]
+  }
+}

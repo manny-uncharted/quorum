@@ -1,0 +1,191 @@
+{
+  "runId": "603bb9e5-c602-462b-8ac6-f5be7c92ef3a",
+  "createdAt": "2026-06-21T22:27:35.374Z",
+  "hash": "488de3f946144eb5abffc06fc42ece54eae70ba5d7a84bc36828c737ab133257",
+  "body": {
+    "runId": "603bb9e5-c602-462b-8ac6-f5be7c92ef3a",
+    "analysis": {
+      "analystSignals": [
+        {
+          "analyst": "volatility",
+          "signal": {
+            "lean": "up",
+            "strength": 0.65,
+            "confidence": 0.75,
+            "summary": "The live BTC spot price has ticked up to 63,673.84, placing it slightly above the strike price of 63,673 with only 3 minutes remaining. Given the market-implied P(up) is underpriced at 48.95% compared to the driftless baseline of 50.18% and the positive live spot movement, buying the 'up' contract offers a clear positive expected value. The short time to expiry and neutral-to-bullish short-term indicators support holding this position."
+          }
+        },
+        {
+          "analyst": "momentum",
+          "signal": {
+            "lean": "up",
+            "strength": 0.75,
+            "confidence": 0.85,
+            "summary": "The live spot price of 63,673.84 has climbed above the strike of 63,673, placing the option in-the-money with only 3 minutes remaining. This upward movement from the earlier spot of 63,669.762 makes the market-implied P(up) of 48.95% highly underpriced. With short-term momentum leaning slightly positive and the spot already above the strike, betting on 'up' offers a strong statistical advantage."
+          }
+        },
+        {
+          "analyst": "catalyst",
+          "signal": {
+            "lean": "up",
+            "strength": 0.65,
+            "confidence": 0.8,
+            "summary": "With only 3 minutes to expiry, the live spot price of 63,673.84 sits just above the strike of 63,673. The market-implied probability of 48.95% represents a discount against the driftless baseline of 50.18%, offering a positive expected value for an upward finish. Given the slight positive short-term momentum indicated by a 55.68 RSI, the 'up' side is statistically favored."
+          }
+        },
+        {
+          "analyst": "flow",
+          "signal": {
+            "lean": "up",
+            "strength": 0.68,
+            "confidence": 0.75,
+            "summary": "The live spot price of 63,673.84 has ticked above the strike of 63,673, yet the market-implied P(up) is underpriced at 48.95% compared to the driftless baseline of 50.18%. Short-term momentum is supportive with positive 15-minute and 1-hour returns and an RSI of 55.68. This creates a mathematically favorable opportunity to buy the undervalued 'up' contract with a statistical edge just before expiry."
+          }
+        }
+      ],
+      "debate": {
+        "bull": "With only three minutes remaining until expiry, the live BTC spot price has ticked up to 63,673.84, placing the contract already in-the-money above the 63,673 strike. Despite this favorable positioning, the market-implied P(up) is heavily discounted at 48.95% compared to the driftless baseline of 50.18%, offering an exceptionally high expected value. Short-term momentum strongly supports maintaining this lead, backed by positive 15-minute and 1-hour returns alongside a supportive RSI of 55.68. Securing the \"up\" contract at this current market discount provides a clear, mathematically superior edge just before settlement.",
+        "bear": "With only three minutes to expiry, the live spot price of 63,673.84 sits a mere 84 cents above the strike price, leaving virtually no margin of safety against BTC's high realized volatility of 54.08%. Furthermore, the broader market remains gripped by \"Extreme Fear\" with an index of 23, which significantly increases the risk of a sudden, late-stage downward spike. Under these volatile conditions, the market-implied P(up) of 48.95% is not a discount, but rather a rational reflection of the high probability that a minor downward tick will push the contract out-of-the-money. Betting on the \"up\" side at this razor-thin threshold ignores the very real threat of micro-second noise erasing this fragile lead before settlement."
+      },
+      "proposal": {
+        "subjectiveProbUp": 0.515,
+        "confidence": 0.85,
+        "abstain": false,
+        "keyDrivers": [
+          "Spot price is currently $0.84 above the strike with 3 minutes remaining",
+          "Market-implied P(up) of 48.95% is discounted against the driftless baseline of 50.18%",
+          "Short-term momentum is positive with RSI at 55.68 and positive 15m/1h returns"
+        ],
+        "reasoning": "Although the $0.84 margin is extremely thin relative to 3-minute volatility, the spot is currently in-the-money and supported by positive micro-momentum. This tilts the true probability of finishing up to ~51.5%, making the market price of 48.95% a positive EV buy."
+      }
+    },
+    "plan": null,
+    "verdict": null,
+    "execution": null,
+    "events": [
+      {
+        "type": "market_context",
+        "context": {
+          "market": {
+            "oracleId": "0x290da4ae4a5e81839dcf219267a2739974296aaaf7842b02c08d4cfa62216549",
+            "oracleCapId": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+            "predictId": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+            "asset": "BTC",
+            "expiry": "2026-06-21T22:30:00.000Z",
+            "msToExpiry": 172790,
+            "minStrike": 50000,
+            "tickSize": 1,
+            "status": "active",
+            "settlementPrice": null,
+            "raw": {
+              "predict_id": "0xc8736204d12f0a7277c86388a68bf8a194b0a14c5538ad13f22cbd8e2a38028a",
+              "oracle_id": "0x290da4ae4a5e81839dcf219267a2739974296aaaf7842b02c08d4cfa62216549",
+              "oracle_cap_id": "0x0b8fb5c4514337dbd300ff2a49185a99433d8369670a23329126388364119817",
+              "underlying_asset": "BTC",
+              "expiry": 1782081000000,
+              "min_strike": 50000000000000,
+              "tick_size": 1000000000,
+              "status": "active",
+              "activated_at": 1782073907218,
+              "settlement_price": null,
+              "settled_at": null,
+              "created_checkpoint": 351217176
+            }
+          },
+          "forward": 63673.31238206,
+          "spot": 63669.762398597,
+          "svi": {
+            "a": 9.67e-7,
+            "b": 0.000025,
+            "sigma": 0.001,
+            "m": -0.001202663,
+            "rho": -0.683330759
+          },
+          "strikeRaw": "63673000000000",
+          "strike": 63673,
+          "riskNeutralProbUp": 0.5017735011617492,
+          "marketProbUp": 0.489474,
+          "minsToExpiry": 3
+        },
+        "ts": "2026-06-21T22:27:09.124Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "momentum",
+        "signal": {
+          "lean": "up",
+          "strength": 0.75,
+          "confidence": 0.85,
+          "summary": "The live spot price of 63,673.84 has climbed above the strike of 63,673, placing the option in-the-money with only 3 minutes remaining. This upward movement from the earlier spot of 63,669.762 makes the market-implied P(up) of 48.95% highly underpriced. With short-term momentum leaning slightly positive and the spot already above the strike, betting on 'up' offers a strong statistical advantage."
+        },
+        "ts": "2026-06-21T22:27:18.523Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "flow",
+        "signal": {
+          "lean": "up",
+          "strength": 0.68,
+          "confidence": 0.75,
+          "summary": "The live spot price of 63,673.84 has ticked above the strike of 63,673, yet the market-implied P(up) is underpriced at 48.95% compared to the driftless baseline of 50.18%. Short-term momentum is supportive with positive 15-minute and 1-hour returns and an RSI of 55.68. This creates a mathematically favorable opportunity to buy the undervalued 'up' contract with a statistical edge just before expiry."
+        },
+        "ts": "2026-06-21T22:27:18.529Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "volatility",
+        "signal": {
+          "lean": "up",
+          "strength": 0.65,
+          "confidence": 0.75,
+          "summary": "The live BTC spot price has ticked up to 63,673.84, placing it slightly above the strike price of 63,673 with only 3 minutes remaining. Given the market-implied P(up) is underpriced at 48.95% compared to the driftless baseline of 50.18% and the positive live spot movement, buying the 'up' contract offers a clear positive expected value. The short time to expiry and neutral-to-bullish short-term indicators support holding this position."
+        },
+        "ts": "2026-06-21T22:27:19.176Z"
+      },
+      {
+        "type": "analyst_signal",
+        "analyst": "catalyst",
+        "signal": {
+          "lean": "up",
+          "strength": 0.65,
+          "confidence": 0.8,
+          "summary": "With only 3 minutes to expiry, the live spot price of 63,673.84 sits just above the strike of 63,673. The market-implied probability of 48.95% represents a discount against the driftless baseline of 50.18%, offering a positive expected value for an upward finish. Given the slight positive short-term momentum indicated by a 55.68 RSI, the 'up' side is statistically favored."
+        },
+        "ts": "2026-06-21T22:27:19.305Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bull",
+        "content": "With only three minutes remaining until expiry, the live BTC spot price has ticked up to 63,673.84, placing the contract already in-the-money above the 63,673 strike. Despite this favorable positioning, the market-implied P(up) is heavily discounted at 48.95% compared to the driftless baseline of 50.18%, offering an exceptionally high expected value. Short-term momentum strongly supports maintaining this lead, backed by positive 15-minute and 1-hour returns alongside a supportive RSI of 55.68. Securing the \"up\" contract at this current market discount provides a clear, mathematically superior edge just before settlement.",
+        "ts": "2026-06-21T22:27:22.943Z"
+      },
+      {
+        "type": "debate_turn",
+        "speaker": "bear",
+        "content": "With only three minutes to expiry, the live spot price of 63,673.84 sits a mere 84 cents above the strike price, leaving virtually no margin of safety against BTC's high realized volatility of 54.08%. Furthermore, the broader market remains gripped by \"Extreme Fear\" with an index of 23, which significantly increases the risk of a sudden, late-stage downward spike. Under these volatile conditions, the market-implied P(up) of 48.95% is not a discount, but rather a rational reflection of the high probability that a minor downward tick will push the contract out-of-the-money. Betting on the \"up\" side at this razor-thin threshold ignores the very real threat of micro-second noise erasing this fragile lead before settlement.",
+        "ts": "2026-06-21T22:27:28.077Z"
+      },
+      {
+        "type": "proposal",
+        "proposal": {
+          "subjectiveProbUp": 0.515,
+          "confidence": 0.85,
+          "abstain": false,
+          "keyDrivers": [
+            "Spot price is currently $0.84 above the strike with 3 minutes remaining",
+            "Market-implied P(up) of 48.95% is discounted against the driftless baseline of 50.18%",
+            "Short-term momentum is positive with RSI at 55.68 and positive 15m/1h returns"
+          ],
+          "reasoning": "Although the $0.84 margin is extremely thin relative to 3-minute volatility, the spot is currently in-the-money and supported by positive micro-momentum. This tilts the true probability of finishing up to ~51.5%, making the market price of 48.95% a positive EV buy."
+        },
+        "ts": "2026-06-21T22:27:35.373Z"
+      },
+      {
+        "type": "abstain",
+        "stage": "planner",
+        "reason": "no qualifying edge / too close to expiry",
+        "ts": "2026-06-21T22:27:35.373Z"
+      }
+    ]
+  }
+}

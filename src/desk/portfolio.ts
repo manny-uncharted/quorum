@@ -63,10 +63,15 @@ function idemKey(oracleId: string, strikeRaw: string, dir: Direction): string {
 
 export class Portfolio {
   private positions: Position[] = [];
+  private readonly lockFile: string;
+  private lockQueue: Promise<void> = Promise.resolve();
+
   private constructor(
     private readonly file: string,
     private readonly ledger: string,
-  ) {}
+  ) {
+    this.lockFile = path.join(path.dirname(file), "portfolio.lock");
+  }
 
   /** Open (or create) a portfolio rooted at `dataDir`. */
   static async open(dataDir = path.resolve("data")): Promise<Portfolio> {
@@ -75,12 +80,90 @@ export class Portfolio {
       path.join(dataDir, "positions.json"),
       path.join(dataDir, "ledger.jsonl"),
     );
+    const release = await p.lock();
     try {
-      p.positions = JSON.parse(await fs.readFile(p.file, "utf8")) as Position[];
-    } catch {
-      p.positions = [];
+      await p.reload();
+    } finally {
+      await release();
     }
     return p;
+  }
+
+  async lock(timeoutMs = 15000): Promise<() => Promise<void>> {
+    let resolveLock!: (release: () => Promise<void>) => void;
+    let rejectLock!: (err: Error) => void;
+    const lockAcquired = new Promise<() => Promise<void>>((res, rej) => {
+      resolveLock = res;
+      rejectLock = rej;
+    });
+
+    this.lockQueue = this.lockQueue.then(async () => {
+      const start = Date.now();
+      let acquired = false;
+      while (!acquired) {
+        try {
+          const handle = await fs.open(this.lockFile, "wx");
+          await handle.writeFile(process.pid.toString(), "utf8");
+          await handle.close();
+          acquired = true;
+        } catch (err: any) {
+          if (err.code !== "EEXIST") {
+            rejectLock(err);
+            return;
+          }
+
+          // Check if the lockfile is stale (owner process no longer exists)
+          try {
+            const content = await fs.readFile(this.lockFile, "utf8");
+            const pid = parseInt(content.trim(), 10);
+            if (Number.isInteger(pid)) {
+              try {
+                // Signal 0 checks process existence without sending actual signal
+                process.kill(pid, 0);
+              } catch (e: any) {
+                if (e.code === "ESRCH") {
+                  // Process is dead, safe to unlink
+                  console.log(`[Lock] Found stale lockfile from dead PID ${pid}, unlinking.`);
+                  await fs.unlink(this.lockFile);
+                  continue; // try to acquire again immediately
+                }
+              }
+            }
+          } catch {
+            // Ignore error if file doesn't exist anymore or is empty
+          }
+
+          if (Date.now() - start > timeoutMs) {
+            rejectLock(new Error(`Timeout acquiring lock on ${this.lockFile} after ${timeoutMs}ms`));
+            return;
+          }
+          await new Promise((r) => setTimeout(r, 50));
+        }
+      }
+
+      let released = false;
+      resolveLock(async () => {
+        if (released) return;
+        released = true;
+        try {
+          await fs.unlink(this.lockFile);
+        } catch {
+          // ignore
+        }
+      });
+    }).catch((err) => {
+      rejectLock(err);
+    });
+
+    return lockAcquired;
+  }
+
+  async reload(): Promise<void> {
+    try {
+      this.positions = JSON.parse(await fs.readFile(this.file, "utf8")) as Position[];
+    } catch {
+      this.positions = [];
+    }
   }
 
   all(): readonly Position[] {
@@ -164,21 +247,27 @@ export class Portfolio {
     settlementPrice: number,
     at = new Date().toISOString(),
   ): Promise<Position[]> {
-    const settled: Position[] = [];
-    for (const p of this.positions) {
-      if (p.oracleId !== oracleId || p.status !== "open") continue;
-      const won =
-        p.direction === "up" ? settlementPrice > p.strike : settlementPrice < p.strike;
-      const payoutUsd = won ? fromDusdcRaw(BigInt(p.quantity)) : 0;
-      p.status = won ? "won" : "lost";
-      p.settlementPrice = settlementPrice;
-      p.realizedPnlUsd = payoutUsd - p.costUsd;
-      p.settledAt = at;
-      settled.push(p);
-      await this.persist({ kind: "settle", position: p });
+    const release = await this.lock();
+    try {
+      await this.reload();
+      const settled: Position[] = [];
+      for (const p of this.positions) {
+        if (p.oracleId !== oracleId || p.status !== "open") continue;
+        const won =
+          p.direction === "up" ? settlementPrice > p.strike : settlementPrice < p.strike;
+        const payoutUsd = won ? fromDusdcRaw(BigInt(p.quantity)) : 0;
+        p.status = won ? "won" : "lost";
+        p.settlementPrice = settlementPrice;
+        p.realizedPnlUsd = payoutUsd - p.costUsd;
+        p.settledAt = at;
+        settled.push(p);
+        await this.persist({ kind: "settle", position: p });
+      }
+      if (settled.length) await this.save();
+      return settled;
+    } finally {
+      await release();
     }
-    if (settled.length) await this.save();
-    return settled;
   }
 
   private async persist(entry: { kind: string; position: Position }): Promise<void> {

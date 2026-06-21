@@ -1,8 +1,12 @@
 import type { NextConfig } from "next";
 
+const isVercel = process.env.VERCEL === "1" || !!process.env.VERCEL;
+const backendUrl = process.env.QUORUM_BACKEND_URL || "http://localhost:8787";
+
 const nextConfig: NextConfig = {
-  output: "export",
-  distDir: "../web",
+  // Only use static export when NOT on Vercel (so local builds for Bun serve work)
+  ...(isVercel ? {} : { output: "export", distDir: "../web" }),
+  
   images: {
     unoptimized: true,
   },
@@ -10,7 +14,7 @@ const nextConfig: NextConfig = {
     return [
       {
         source: "/api/:path*",
-        destination: "http://localhost:8787/api/:path*",
+        destination: `${backendUrl}/api/:path*`,
       },
     ];
   },
